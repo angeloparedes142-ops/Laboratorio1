@@ -250,7 +250,144 @@ body {
 }
 
 
+/* CARrito / PEDIDOS */
 
+.pedidos-page {
+    padding: 40px 20px;
+}
+.pedidos-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.pedidos-titulo h1 {
+    color: #3b2416;
+    font-size: 30px;
+}
+.pedido-contenedor {
+    display: flex;
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
+}
+.pedido-formulario,
+.resumen-pedido {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+.pedido-formulario {
+    flex: 2;
+}
+.resumen-pedido {
+    flex: 1;
+    height: fit-content;
+}
+.pedido-formulario h2,
+.resumen-pedido h2 {
+    color: #3b2416;
+    margin-bottom: 20px;
+}
+.fila {
+    display: flex;
+    gap: 15px;
+}
+.campo {
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3b2416;
+    font-weight: bold;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.productos {
+    margin-top: 20px;
+}
+.producto-pedido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.producto-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.producto-info img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.producto-info h3 {
+    margin: 0;
+    color: #3b2416;
+}
+
+.producto-info p {
+    margin: 5px 0;
+    color: #6b4226;
+}
+.cantidad {
+    width: 55px !important;
+}
+.resumen-linea,
+.resumen-total {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.resumen-total {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3b2416;
+}
+.botones-pedido {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.btn-pedido {
+    flex: 1;
+    padding: 12px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-confirmar {
+    background: #3b2416;
+    color: white;
+}
+.btn-limpiar {
+    background: #ddd;
+}
+.mensaje-pedido {
+    display: none;
+    margin-top: 15px;
+    padding: 10px;
+    background: #dff0d8;
+    color: #397439;
+    text-align: center;
+    border-radius: 5px;
+}
 
 
 
