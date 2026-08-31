@@ -496,3 +496,141 @@ body {
     opacity: 1;
   }
 }
+```css
+/* ==========================================
+   BOTÓN AGREGAR AL CARRITO
+   ========================================== */
+
+.btn-carrito {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+
+    background-color: #3b2416;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 5px;
+
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+
+.btn-carrito:hover {
+    background-color: #6b4226;
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.20);
+}
+
+
+/* ==========================================
+   PRECIO DEL PRODUCTO
+   ========================================== */
+
+.producto-precio {
+    margin-top: 15px;
+    margin-bottom: 5px;
+
+    color: #3b2416;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   ENLACE VER CARRITO
+   ========================================== */
+
+.back-link {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    color: #3b2416;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #6b4226;
+}
+
+
+/* ==========================================
+   CONTADOR DEL CARRITO
+   ========================================== */
+
+#contador-carrito {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 22px;
+    height: 22px;
+
+    margin-left: 5px;
+
+    padding: 2px 6px;
+
+    background-color: #3b2416;
+
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   TARJETA DEL PRODUCTO
+   ========================================== */
+
+.page-card {
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.page-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+
+    .btn-carrito {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        text-align: center;
+
+        padding: 12px;
+    }
+
+    .producto-precio {
+        font-size: 17px;
+    }
+
+}
