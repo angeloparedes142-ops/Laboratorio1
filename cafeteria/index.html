@@ -10,68 +10,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/normalize-path/ normalize.css">
-</head>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <body>
-    <header class="bg-header">
-        <div class="bg-navbar">
-            <div class="container">
-                <div class="navbar">
-                    <a href="/" class="navbar-brand">
-                        <img src="imagenes/logo.svg" alt="Logo ">
-                        coffee
-                    </a>
-                    <nav class="navbar-nav">
-                        <a href="#" class="nav-link boton-82"><span>inicio</span></a>
-                        <a href="pedidos.html" class="nav-link">pedidos</a>
-                        <a href="reservasiones.html" class="nav-link">reservasiones</a>
-                        <a href="usuario.html" class="nav-link">usuario</a>
-                    </nav>
-                </div>
+<header style="background-image: url('imagenes/header.jpg'); background-size: cover; background-position: center; min-height: 400px;">
+    <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
+        <div class="container">
+            <!-- Logo y Marca -->
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="imagenes/logo.svg" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
+            </a>
+            
+            <!-- Botón para celulares -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Enlaces de navegación -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav bg-white rounded px-3 py-1">
+    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" href="#">Inicio</a></li>
+    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" href="pedidos.html">Pedidos</a></li>
+    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" href="reservaciones.html">Reservaciones</a></li>
+    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" href="usuario.html">Usuario</a></li>
+</ul>
             </div>
         </div>
-    </header>
-    <main class="container main">
-        <h1 class="main-titulo">nuestros productos</h1>
-        <section class="tienda">
-            <article class="card">
-                <img src="imagenes/postres.jpg" alt="" class="card-img">
-                    <div class="card-body">
-                        <h5>POSTRES</h5>
-                        <p>Hechos con ingredientes reales y mucho amor. 
-Cero preservantes, 100% sabor.
-Desde tortas y cheesecakes hasta alfajores y cupcakes.
-Cada postre está pensado para endulzar tus momentos especiales.
-Elige tu favorito y te lo llevamos fresquito.</p>
-                       <a href="postres.html" class="btn btn-dark">GO</a>
-                    </div>
-            </article>
+    </nav>
+</header>
 
-               <article class="card">
-                <img src="imagenes/cafee.jpg" alt="" class="card-img">
-                    <div class="card-body">
-                        <h5>COFFE.</h5>
-                        <p>Empieza tu día o date un break con nuestro café recién preparado.
-Combinado con nuestros postres, es la dosis de felicidad que necesitas.
-Café caliente, frío, latte y más.
-Pídelo solo o en combo con tu postre favorito.</p>
-                       <a href="coffe.html" class="btn btn-dark">GO</a>
-                    </div>
-            </article>
+<main class="container my-5">
+    <h1 class="text-center mb-5 fw-bold">NUESTROS PRODUCTOS</h1>
+    
+    <section class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Tarjeta 1 -->
+        <article class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="imagenes/postres.jpg" class="card-img-top" alt="Postres" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">POSTRES</h5>
+                    <p class="card-text flex-grow-1">Hechos con ingredientes reales y mucho amor. Cero preservantes, 100% sabor. Desde tortas y cheesecakes hasta alfajores y cupcakes. Cada postre está pensado para endulzar tus momentos especiales.</p>
+                    <a href="postres.html" class="btn btn-dark mt-auto">GO</a>
+                </div>
+            </div>
+        </article>
 
+        <!-- Tarjeta 2 -->
+        <article class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="imagenes/cafee.jpg" class="card-img-top" alt="Café" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">COFFEE</h5>
+                    <p class="card-text flex-grow-1">Empieza tu día o date un break con nuestro café recién preparado. Combinado con nuestros postres, es la dosis de felicidad que necesitas. Pídelo solo o en combo con tu postre favorito.</p>
+                    <a href="coffe.html" class="btn btn-dark mt-auto">GO</a>
+                </div>
+            </div>
+        </article>
 
-               <article class="card">
-                <img src="imagenes/promo.jpg" alt="" class="card-img">
-                    <div class="card-body">
-                        <h5>DESCUENTOS</h5>
-                        <p>Porque darte un gustito no debería costar tanto.
-Esta semana todos nuestros productos tienen descuento especial.
-No dejes pasar la oportunidad.</p>
-                       <a href="promociones.html" class="btn btn-dark">GO</a>
-                    </div>
-            </article>
-        </section>
-
-    </main>
+        <!-- Tarjeta 3 -->
+        <article class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="imagenes/promo.jpg" class="card-img-top" alt="Descuentos" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">DESCUENTOS</h5>
+                    <p class="card-text flex-grow-1">Porque darte un gustito no debería costar tanto. Esta semana todos nuestros productos tienen descuento especial. No dejes pasar la oportunidad.</p>
+                    <a href="promociones.html" class="btn btn-dark mt-auto">GO</a>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
 </body>
 </html>
