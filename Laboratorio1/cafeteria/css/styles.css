@@ -159,43 +159,19 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.12);
 }
 
-.dessert-card {
-    max-width: 330px;
-}
-
 .page-card img {
     width: 100%;
-    height: 220px;
+    height: 280px;
     object-fit: cover;
     display: block;
 }
 
 .page-card-body {
-    padding: 1.2rem 1rem 1.5rem;
-    text-align: center;
+    padding: 1.5rem;
 }
 
 .page-card-body p {
     line-height: 1.7;
-    margin: 0.35rem 0;
-}
-
-.producto-nombre {
-    margin: 0 0 0.75rem;
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-.producto-precio {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-}
-
-.add-cart-btn {
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    padding: 0.75rem 1.2rem;
 }
 
 .back-link {
@@ -274,144 +250,7 @@ body {
 }
 
 
-/* CARrito / PEDIDOS */
 
-.pedidos-page {
-    padding: 40px 20px;
-}
-.pedidos-titulo {
-    text-align: center;
-    margin-bottom: 30px;
-}
-.pedidos-titulo h1 {
-    color: #3b2416;
-    font-size: 30px;
-}
-.pedido-contenedor {
-    display: flex;
-    gap: 25px;
-    max-width: 1000px;
-    margin: auto;
-}
-.pedido-formulario,
-.resumen-pedido {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-}
-.pedido-formulario {
-    flex: 2;
-}
-.resumen-pedido {
-    flex: 1;
-    height: fit-content;
-}
-.pedido-formulario h2,
-.resumen-pedido h2 {
-    color: #3b2416;
-    margin-bottom: 20px;
-}
-.fila {
-    display: flex;
-    gap: 15px;
-}
-.campo {
-    flex: 1;
-    margin-bottom: 15px;
-}
-
-.campo label {
-    display: block;
-    margin-bottom: 5px;
-    color: #3b2416;
-    font-weight: bold;
-}
-
-.campo input,
-.campo select,
-.campo textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-.productos {
-    margin-top: 20px;
-}
-.producto-pedido {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-.producto-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.producto-info img {
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-.producto-info h3 {
-    margin: 0;
-    color: #3b2416;
-}
-
-.producto-info p {
-    margin: 5px 0;
-    color: #6b4226;
-}
-.cantidad {
-    width: 55px !important;
-}
-.resumen-linea,
-.resumen-total {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-}
-
-.resumen-total {
-    border-top: 1px solid #ccc;
-    padding-top: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #3b2416;
-}
-.botones-pedido {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-.btn-pedido {
-    flex: 1;
-    padding: 12px;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.btn-confirmar {
-    background: #3b2416;
-    color: white;
-}
-.btn-limpiar {
-    background: #ddd;
-}
-.mensaje-pedido {
-    display: none;
-    margin-top: 15px;
-    padding: 10px;
-    background: #dff0d8;
-    color: #397439;
-    text-align: center;
-    border-radius: 5px;
-}
 
 
 
@@ -657,251 +496,59 @@ body {
     opacity: 1;
   }
 }
-```css
-/* ==========================================
-   BOTÓN AGREGAR AL CARRITO
-   ========================================== */
 
-.btn-carrito {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 20px;
+:root{
+  --coffee-900:#2b1c14;
+  --coffee-700:#5b3a29;
+  --clay:#c1683c;
+  --cream:#f3e9db;
+  --cream-2:#fbf6ee;
+  --green:#4c6b4f;
+}
+body{ font-family:'Inter', sans-serif; background-color:var(--cream); color:var(--coffee-900); }
+h1,h2,h3,.brand{ font-family:'Fraunces', serif; }
 
-    background-color: #3b2416;
-    color: #ffffff;
+.site-header{ background-color:var(--coffee-900); color:var(--cream-2); }
+.site-header .brand{ font-size:1.6rem; font-weight:700; color:var(--cream-2); }
+.site-header .brand span{ color:var(--clay); }
+.nav-link-custom{ color:rgba(251,246,238,.75) !important; font-weight:500; }
+.nav-link-custom.active, .nav-link-custom:hover{ color:var(--cream-2) !important; }
 
-    border: none;
-    border-radius: 5px;
+.hero{
+  background: linear-gradient(180deg, rgba(43,28,20,.75), rgba(43,28,20,.55)),
+    repeating-linear-gradient(135deg, var(--coffee-700) 0px, var(--coffee-700) 2px, var(--coffee-900) 2px, var(--coffee-900) 40px);
+  color:var(--cream-2); padding:4.5rem 0 3.5rem;
+}
+.hero .eyebrow{ letter-spacing:2px; text-transform:uppercase; font-size:.8rem; color:var(--clay); font-weight:600; }
+.hero h1{ font-size:clamp(2.1rem, 4vw, 3.2rem); font-weight:700; line-height:1.1; }
+.hero p.lead-text{ max-width:560px; color:rgba(251,246,238,.85); }
 
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+.card-custom{ background-color:var(--cream-2); border:1px solid rgba(43,28,20,.08); border-radius:.6rem; }
+.section-title{ font-weight:700; color:var(--coffee-900); }
+.section-divider{ width:48px; height:3px; background-color:var(--clay); border:none; margin:.6rem 0 1.4rem; }
 
-    cursor: pointer;
-    text-decoration: none;
+.form-label{ font-weight:600; color:var(--coffee-700); }
+.form-control:focus, .form-select:focus{ border-color:var(--clay); box-shadow:0 0 0 .2rem rgba(193,104,60,.25); }
+.btn-clay{ background-color:var(--clay); border-color:var(--clay); color:#fff; font-weight:600; }
+.btn-clay:hover{ background-color:#a8552f; border-color:#a8552f; color:#fff; }
+.btn-outline-clay{ border-color:var(--clay); color:var(--clay); font-weight:600; }
+.btn-outline-clay:hover{ background-color:var(--clay); color:#fff; }
 
-    transition: all 0.3s ease;
+.contact-icon{
+  width:42px; height:42px; border-radius:50%;
+  background-color:rgba(193,104,60,.12); color:var(--clay);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.map-box{
+  background-color:var(--coffee-900); border-radius:.6rem; min-height:220px;
+  color:rgba(251,246,238,.6); display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; letter-spacing:.5px;
 }
 
-/* Efecto al pasar el mouse */
+.table-reservas thead{ background-color:var(--coffee-900); color:var(--cream-2); }
+.badge-estado{ background-color:var(--green); }
+.empty-state{ color:#8a7a6d; padding:2rem 0; }
 
-.btn-carrito:hover {
-    background-color: #6b4226;
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.20);
-}
-
-
-/* ==========================================
-   PRECIO DEL PRODUCTO
-   ========================================== */
-
-.producto-precio {
-    margin-top: 15px;
-    margin-bottom: 5px;
-
-    color: #3b2416;
-
-    font-size: 18px;
-}
-
-
-/* ==========================================
-   ENLACE VER CARRITO
-   ========================================== */
-
-.back-link {
-    display: inline-block;
-
-    margin-top: 20px;
-
-    color: #3b2416;
-
-    font-weight: bold;
-
-    text-decoration: none;
-
-    transition: color 0.3s ease;
-}
-
-.back-link:hover {
-    color: #6b4226;
-}
-
-
-/* ==========================================
-   CONTADOR DEL CARRITO
-   ========================================== */
-
-#contador-carrito {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-width: 22px;
-    height: 22px;
-
-    margin-left: 5px;
-
-    padding: 2px 6px;
-
-    background-color: #3b2416;
-
-    color: #ffffff;
-
-    border-radius: 50%;
-
-    font-size: 12px;
-    font-weight: bold;
-}
-
-
-/* ==========================================
-   TARJETA DEL PRODUCTO
-   ========================================== */
-
-.page-card {
-    overflow: hidden;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.page-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 600px) {
-
-    .btn-carrito {
-        width: 100%;
-
-        box-sizing: border-box;
-
-        text-align: center;
-
-        padding: 12px;
-    }
-
-    .producto-precio {
-        font-size: 17px;
-    }
-
-}
-
-/* ==========================================
-   ESTILOS PARA PÁGINA DE POSTRES
-   ========================================== */
-
-/* Efectos en tarjetas de Bootstrap */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Estilos para tablas */
-table thead {
-    background-color: #D2B48C !important;
-    color: #3b2416 !important;
-}
-
-table tbody tr {
-    border-left: 4px solid #D4A574;
-}
-
-table tbody tr:hover {
-    background-color: #f5f5f5 !important;
-}
-
-/* Badge personalizado */
-.badge {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-}
-
-/* Formularios */
-.form-control:focus,
-.form-select:focus {
-    border-color: #2a9d8f;
-    box-shadow: 0 0 0 0.2rem rgba(42, 157, 143, 0.25);
-}
-
-.form-label {
-    color: #3b2416;
-}
-
-/* Footer */
-footer h6 {
-    margin-bottom: 1rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 0.5rem;
-}
-
-footer p {
-    line-height: 1.8;
-}
-
-/* Modales */
-.modal-content {
-    border-radius: 0.75rem;
-    border: 2px solid #D4A574;
-}
-
-.modal-header {
-    border-bottom: 2px solid #D4A574;
-}
-
-.modal-body strong {
-    color: #8B4513;
-}
-
-.modal-footer {
-    border-top: 2px solid #D4A574;
-}
-
-/* Secciones con fondo */
-section {
-    transition: background-color 0.3s ease;
-}
-
-/* Animación en títulos */
-h2, h3 {
-    animation: fadeInDown 0.5s ease-in-out;
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive mejorado */
-@media (max-width: 768px) {
-    .card {
-        margin-bottom: 1rem;
-    }
-    
-    .table-responsive {
-        font-size: 0.9rem;
-    }
-    
-    h2 {
-        font-size: 1.8rem !important;
-    }
-}
+footer{ background-color:var(--coffee-900); color:rgba(251,246,238,.6); }
+.btn-close-custom{ filter: invert(1) grayscale(100%) brightness(200%); }
+.modal-header-custom{ background-color:var(--coffee-900); color:var(--cream-2); }

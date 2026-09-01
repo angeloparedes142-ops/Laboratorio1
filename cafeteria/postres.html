@@ -4,98 +4,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postres | Cafetería</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Postres | Cafetería Coffee Aengers</title>
+    
+    <!-- Bootstrap CDN CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    
+    <!-- Normalizar estilos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: "Raleway", sans-serif;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+        }
+    </style>
 </head>
+
 <body>
-<header class="bg-header">
-
-    <div class="bg-navbar">
-        <div class="container">
-            <div class="navbar">
-                <a href="index.html" class="navbar-brand">
-                    <img src="imagenes/logo.svg" alt="Logo">
-
-                    coffee
-
+    <!-- ENCABEZADO -->
+    <header style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('imagenes/header.jpg'); background-size: cover; background-position: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        
+        <!-- BARRA DE NAVEGACIÓN RESPONSIVA -->
+        <nav class="navbar navbar-expand-lg navbar-light w-100 position-fixed top-0" style="background-color: rgba(210, 180, 140, 0.95); z-index: 1000;">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <span style="color: #8B4513; font-size: 1.8rem;">☕ COFFEE</span>
                 </a>
-                <nav class="navbar-nav">
-                    <a href="index.html" class="nav-link">
-                        Inicio
-                    </a>
+                
+                <!-- Botón Toggle para móvil -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Menú de navegación -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="coffe.html">Café</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="postres.html">Postres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="promociones.html">Promociones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pedidos.html">🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Título de la página -->
+        <h1 class="text-white text-center fw-bold" style="font-size: 3rem; margin-top: 80px;">✨ NUESTROS DELICIOSOS POSTRES ✨</h1>
+    </header>
 
-                    <a href="coffe.html" class="nav-link">
-                        Café
-                    </a>
-                    <a href="postres.html" class="nav-link">
-                        Postres
-                    </a>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main style="margin-top: 80px;">
+        
+        <!-- SECCIÓN 1: GALERÍA DE POSTRES (Sistema de Columnas Bootstrap) -->
+        <section class="py-5" style="background-color: #f8f9fa;">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold" style="color: #8B4513; font-size: 2.5rem;">
+                    🍰 Nuestras Especialidades
+                </h2>
+                
+                <!-- Grid Responsivo: 1 columna en móvil, 2 en tablet, 3 en desktop -->
+                <div class="row g-4">
+                    
+                    <!-- Postre 1 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/cheesecake.jpg"
+                                 class="card-img-top" alt="Cheesecake de Frutos Rojos" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">Cheesecake de Frutos Rojos</h5>
+                                <p class="card-text text-muted small">Delicioso cheesecake con frutos rojos frescos y salsa de arándanos.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 12.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre1">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Postre 2 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/tiramisu.jpg"
+                                 class="card-img-top" alt="Tiramisú Italiano" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">Tiramisú Italiano</h5>
+                                <p class="card-text text-muted small">Clásico italiano con café, mascarpone y cacao. Auténtica receta.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 14.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre2">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Postre 3 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/keke.jpg"
+                                 class="card-img-top" alt="keke" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">queque</h5>
+                                <p class="card-text text-muted small">queque caseros esponjosos con nueces.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 5.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre3">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Postre 4 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/pay de manzana.jpg" 
+                                 class="card-img-top" alt="pay de manzana" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">Pay de Manzana</h5>
+                                <p class="card-text text-muted small">Pay de manzana con caramelo y crema.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 10.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre4">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Postre 5 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/flan.jpg"
+                                 class="card-img-top" alt="Flan Casero" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">Flan Casero</h5>
+                                <p class="card-text text-muted small">Flan tradicional con caramelo, suave y cremoso. Receta de la querida abuela.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 8.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre5">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Postre 6 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm" style="border: 2px solid #D4A574;">
+                            <img src="imagenes/rollo de canela.jpg" 
+                                 class="card-img-top" alt="Rollo de Canela" style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold" style="color: #8B4513;">Rollo de Canela</h5>
+                                <p class="card-text text-muted small">Rollo de canela esponjoso con relleno de crema y azúcar.</p>
+                                <p class="fw-bold" style="color: #2a9d8f; font-size: 1.3rem;">S/ 10.00</p>
+                                <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalPostre6">
+                                    Ver Detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN 2: TABLA DE INFORMACIÓN -->
+        <section class="py-5">
+            <div class="container">
+                <h3 class="text-center mb-4 fw-bold" style="color: #8B4513;">📊 Información de Nuestros Postres</h3>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead style="background-color: #D2B48C;">
+                            <tr>
+                                <th>Postre</th>
+                                <th>Calorías</th>
+                                <th>Tamaño</th>
+                                <th>Disponible</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cheesecake de Frutos Rojos</td>
+                                <td>350 kcal</td>
+                                <td>200g</td>
+                                <td><span class="badge bg-success">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tiramisú Italiano</td>
+                                <td>380 kcal</td>
+                                <td>180g</td>
+                                <td><span class="badge bg-success">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>queque</td>
+                                <td>320 kcal</td>
+                                <td>150g</td>
+                                <td><span class="badge bg-success">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pay de Manzana</td>
+                                <td>250 kcal</td>
+                                <td>160g</td>
+                                <td><span class="badge bg-warning">Limitado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Flan Casero</td>
+                                <td>280 kcal</td>
+                                <td>170g</td>
+                                <td><span class="badge bg-success">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rollo de Canela</td>
+                                <td>60 kcal</td>
+                                <td>15g c/u</td>
+                                <td><span class="badge bg-success">Sí</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN 3: FORMULARIO DE COMENTARIOS -->
+        <section class="py-5" style="background-color: #f8f9fa;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h3 class="text-center mb-4 fw-bold" style="color: #8B4513;">💬 Déjanos tu Comentario</h3>
+                        
+                        <form id="formularioComentarios">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-bold">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Correo:</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="tu@correo.com" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="postre" class="form-label fw-bold">¿Qué postre probaste?</label>
+                                <select class="form-select" id="postre" name="postre" required>
+                                    <option selected disabled>Selecciona un postre...</option>
+                                    <option value="cheesecake">Cheesecake de Frutos Rojos</option>
+                                    <option value="tiramisu">Tiramisú Italiano</option>
+                                    <option value="brownies">queque</option>
+                                    <option value="flan">Flan Casero</option>
+                                    <option value="rollo_canela">Rollo de Canela</option>
+                                    <option value="pay_manzana">Pay de Manzana</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="calificacion" class="form-label fw-bold">Calificación:</label>
+                                <select class="form-select" id="calificacion" name="calificacion" required>
+                                    <option selected disabled>Selecciona una calificación...</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                                    <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+                                    <option value="3">⭐⭐⭐ Bueno</option>
+                                    <option value="2">⭐⭐ Regular</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label fw-bold">Tu Comentario:</label>
+                                <textarea class="form-control" id="comentario" name="comentario" rows="4" placeholder="Cuéntanos tu experiencia..." required></textarea>
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="suscribirse" name="suscribirse">
+                                <label class="form-check-label" for="suscribirse">
+                                    Deseo recibir ofertas especiales por correo
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn w-100 py-2 fw-bold" style="background-color: #2a9d8f; color: white; border: none;">
+                                📤 Enviar Comentario
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-                    <a href="promociones.html" class="nav-link">
-                        Promociones
-                    </a>
-                    <a href="pedidos.html" class="nav-link">
-                        🛒 Carrito
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </nav>
+    <!-- PIE DE PÁGINA -->
+    <footer style="background-color: #8B4513; color: white;" class="py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold">☕ COFFEE AVENGERS</h6>
+                    <p class="small">Los mejores postres y café de la ciudad.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold">Horario</h6>
+                    <p class="small">Lunes a Viernes: 7:00 AM - 8:00 PM<br>Sábado y Domingo: 8:00 AM - 9:00 PM</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold">Contacto</h6>
+                    <p class="small">📞 (555) 123-4567<br>📧 info@coffeeavengers.com</p>
+                </div>
+            </div>
+            <hr>
+            <p class="text-center small mb-0">&copy; 2024 Coffee Avengers. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- VENTANAS MODALES (Modal Bootstrap) -->
+    
+    <!-- Modal 1: Cheesecake -->
+    <div class="modal fade" id="modalPostre1" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Cheesecake de Frutos Rojos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Delicioso cheesecake con frutos rojos frescos y salsa de arándanos.</p>
+                    <p><strong>Precio:</strong> S/ 12.00</p>
+                    <p><strong>Ingredientes:</strong> Queso crema, galletas, arándanos, fresas, frambuesas.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-success">Disponible</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
             </div>
         </div>
     </div>
-</header>
 
-
-<main class="container page-main">
-
-    <h1 class="page-title">
-        POSTRES
-    </h1>
-
-    <section class="page-section">
-
-        <article class="page-card">
-
-            <img
-                src="imagenes/postres.jpg"
-                alt="Postres de la cafetería"
-            >
-
-            <div class="page-card-body">
-
-                <p>
-                    Hechos con ingredientes reales y mucho amor.
-                    Cero preservantes, 100% sabor. Desde tortas y
-                    cheesecakes hasta alfajores y cupcakes.
-                    Cada postre está pensado para endulzar tus
-                    momentos especiales.
-                </p>
-
-                <p class="producto-precio">
-                    <strong>
-                        S/ 10.00
-                    </strong>
-                </p>
-
+    <!-- Modal 2: Tiramisú -->
+    <div class="modal fade" id="modalPostre2" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Tiramisú Italiano</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Clásico italiano con café, mascarpone y cacao. Auténtica receta.</p>
+                    <p><strong>Precio:</strong> S/ 14.00</p>
+                    <p><strong>Ingredientes:</strong> Mascarpone, café espresso, bizcochos, cacao, huevos.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-success">Disponible</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
             </div>
-        </article>
-    </section>
+        </div>
+    </div>
 
+    <!-- Modal 3: Brownies -->
+    <div class="modal fade" id="modalPostre3" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Brownies de Chocolate</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Brownies caseros esponjosos con chocolate premium y nueces.</p>
+                    <p><strong>Precio:</strong> S/ 8.00</p>
+                    <p><strong>Ingredientes:</strong> Chocolate, mantequilla, azúcar, huevos, harina, nueces.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-success">Disponible</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="carrito.html">
-        🛒 Ver carrito
-        <span id="contador-carrito">0</span>
-    </a>
-    <br>
-    <a href="index.html" class="back-link">
-        ← Volver al inicio
-    </a>
+    <!-- Modal 4: Pavlova -->
+    <div class="modal fade" id="modalPostre4" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Pavlova de Fresas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Merengue crujiente con crema y fresas frescas. Ligero y delicioso.</p>
+                    <p><strong>Precio:</strong> S/ 10.00</p>
+                    <p><strong>Ingredientes:</strong> Claras de huevo, azúcar, crema batida, fresas, vainilla.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-warning">Limitado</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</main>
+    <!-- Modal 5: Flan -->
+    <div class="modal fade" id="modalPostre5" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Flan Casero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Flan tradicional con caramelo, suave y cremoso. Receta abuela.</p>
+                    <p><strong>Precio:</strong> S/ 6.00</p>
+                    <p><strong>Ingredientes:</strong> Leche condensada, leche evaporada, huevos, caramelo, vainilla.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-success">Disponible</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal 6: Macarons -->
+    <div class="modal fade" id="modalPostre6" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #D2B48C;">
+                    <h5 class="modal-title fw-bold">Macarons Variados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Descripción:</strong> Delicados macarons franceses en diversos sabores y colores.</p>
+                    <p><strong>Precio:</strong> S/ 15.00 (docena)</p>
+                    <p><strong>Sabores:</strong> Pistacho, frambuesa, limón, chocolate, vainilla, salted caramel.</p>
+                    <p><strong>Disponibilidad:</strong> <span class="badge bg-success">Disponible</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">🛒 Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script personalizado -->
+    <script>
+        // Evento para el formulario de comentarios
+        document.getElementById('formularioComentarios').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu comentario, ' + document.getElementById('nombre').value + '! 😊\nNos encantó saber tu opinión.');
+            this.reset();
+        });
+    </script>
 </body>
+
 </html>
