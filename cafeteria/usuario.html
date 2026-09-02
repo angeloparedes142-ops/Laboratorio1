@@ -3,40 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
-            font-family: Arial, sans-serif;
-            color: #111;
-        }
-        .box {
-            text-align: center;
-        }
-        h1 {
-            font-size: 2rem;
-            margin: 0 0 1rem;
-        }
-        a {
-            display: inline-block;
-            margin-top: 1rem;
-            color: #111;
-            text-decoration: none;
-            border: 1px solid #111;
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-        }
-    </style>
+    <title>Mi Perfil | Cafetería</title>
+    <!-- Tipografía Raleway -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Enlace a tu archivo de estilos externo -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="box">
-        <h1>Usuario</h1>
-        <a href="index.html">Volver al inicio</a>
+
+<header class="bg-header">
+    <div class="bg-navbar">
+        <div class="container navbar">
+            <a href="index.html" class="navbar-brand">
+                <img src="imagenes/logo.svg" alt="Logo Cafetería">
+                Cafetería
+            </a>
+            <nav class="navbar-nav">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="usuario.html" class="nav-link">Mi Perfil</a>
+                <a href="promociones.html" class="nav-link">Promociones</a>
+                <a href="pedidos.html" class="nav-link">Pedidos</a>
+            </nav>
+        </div>
     </div>
+</header>
+
+<main class="container page-main">
+    <div class="page-card" style="margin: 0 auto; background-color: #fff; color: #333;">
+        <div class="header-perfil" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('imagenes/fondo\ cafe.jfif') center/cover; color: white; padding: 40px 20px; text-align: center;">
+            <img src="imagenes/foto.jfif" alt="Avatar" class="avatar" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; margin-bottom: 10px;">
+            <h1 class="page-title" style="margin:0; color: white;">¡Hola, Coffee Lover! 👋</h1>
+            <p style="margin:5px 0 0;">☕ Miembro VIP - Amante del buen café</p>
+        </div>
+
+        <div class="stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px;">
+            <div class="stat-card" style="background: #fdfaf5; border: 1px solid #eee; border-radius: 10px; padding: 15px; text-align: center;">
+                <h3 style="margin: 0 0 5px; color: #d2691e; font-size: 1.5rem;">⭐ 450</h3>
+                <p style="margin: 0; font-size: 0.9rem; color: #666;">Puntos Acumulados</p>
+            </div>
+            <div class="stat-card" style="background: #fdfaf5; border: 1px solid #eee; border-radius: 10px; padding: 15px; text-align: center;">
+                <h3 style="margin: 0 0 5px; color: #d2691e; font-size: 1.5rem;">🎁 1</h3>
+                <p style="margin: 0; font-size: 0.9rem; color: #666;">Café Gratis Disponible</p>
+            </div>
+        </div>
+
+        <div class="seccion" style="padding: 20px; text-align: left;">
+            <h2 style="border-bottom: 2px solid #f0e6d2; padding-bottom: 10px; margin-top: 0; color: #3b2416;">Mis Favoritos ❤️</h2>
+            <div class="lista-favoritos" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
+                <div class="fav-item" style="min-width: 120px; text-align: center;">
+                    <img src="imagenes/capuchino.jfif" alt="Capuccino" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
+                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Capuccino</p>
+                </div>
+                <div class="fav-item" style="min-width: 120px; text-align: center;">
+                    <img src="imagenes/roscas.jfif" alt="Postres" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
+                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Postres</p>
+                </div>
+                <div class="fav-item" style="min-width: 120px; text-align: center;">
+                    <img src="imagenes/frape.jfif" alt="Frappé" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
+                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Frappé Moka</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="seccion" style="padding: 20px; text-align: left;">
+            <h2 style="border-bottom: 2px solid #f0e6d2; padding-bottom: 10px; margin-top: 0; color: #3b2416;">Último Pedido 🛍️</h2>
+            <p><strong>Fecha:</strong> 28 de Agosto, 2026</p>
+            <p><strong>Detalle:</strong> 1x Combo Mañanero, 1x Espresso Doble</p>
+            <p><strong>Total:</strong> S/ 22.00</p>
+            <a href="pedidos.html" class="btn btn-primary">Repetir Pedido 🔄</a>
+        </div>
+
+        <div class="seccion" style="padding: 20px; text-align: center; border-top: 1px solid #eee;">
+            <a href="index.html" class="btn btn-primary">🏠 Volver a la Tienda</a>
+            <a href="promociones.html" class="btn btn-secondary">🎟️ Ver Promos</a>
+        </div>
+    </div>
+</main>
+
 </body>
 </html>

@@ -1,115 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Promociones | Cafetería</title>
+    <!-- Tipografía Raleway -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Enlace a tu archivo de estilos externo -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
 </head>
-
 <body>
+
 <header class="bg-header">
     <div class="bg-navbar">
-        <div class="container">
-            <div class="navbar">
-                <a href="index.html" class="navbar-brand">
-                    <img src="imagenes/logo.svg" alt="Logo">
-
-                    coffee
-
-                </a>
-
-                <nav class="navbar-nav">
-                    <a href="index.html" class="nav-link">
-                        Inicio
-                    </a>
-
-                    <a href="coffe.html" class="nav-link">
-                        Café
-                    </a>
-
-                    <a href="postres.html" class="nav-link">
-                        Postres
-                    </a>
-
-                    <a href="promociones.html" class="nav-link">
-                        Promociones
-                    </a>
-
-                    <a href="pedidos.html" class="nav-link">
-                        🛒 Carrito
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </nav>
-            </div>
+        <div class="container navbar">
+            <a href="index.html" class="navbar-brand">
+                <img src="imagenes/logo.svg" alt="Logo Cafetería">
+                Cafetería
+            </a>
+            <nav class="navbar-nav">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="usuario.html" class="nav-link">Mi Perfil</a>
+                <a href="promociones.html" class="nav-link">Promociones</a>
+                <a href="pedidos.html" class="nav-link">Pedidos</a>
+            </nav>
         </div>
     </div>
 </header>
 
-
 <main class="container page-main">
+    <h1 class="page-title">Promociones Especiales</h1>
+    <p style="margin-bottom: 2rem; color: #666;">Aprovecha nuestros descuentos y combos exclusivos pensados para ti.</p>
 
-    <h1 class="page-title">
-        PROMOCIONES
-    </h1>
     <section class="page-section">
+        <!-- Tarjeta Promoción 1 -->
         <article class="page-card">
-
-            <img
-                src="imagenes/promo.jpg"
-                alt="Promociones de la cafetería"
-            >
-
+            <img src="imagenes/fondo mañana.jfif" alt="Combo Mañanero">
             <div class="page-card-body">
+                <h2 class="producto-nombre">Combo Mañanero ☀️</h2>
+                <p>Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla recién horneado.</p>
+                <p class="producto-precio"><strong>Precio Oferta: S/ 12.00</strong></p>
+                <a href="pedidos.html" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
+            </div>
+        </article>
 
-                <p>
-                    Porque darte un gustito no debería costar tanto.
-                    Esta semana todos nuestros productos tienen
-                    descuento especial. No dejes pasar la oportunidad.
-                </p>
-
-                <p class="producto-precio">
-                    <strong>
-                        S/ 15.00
-                    </strong>
-                </p>
-
-                <button
-                    type="button"
-                    class="btn-carrito"
-                    onclick="agregarProducto(
-                        'Promoción especial',
-                        15.00,
-                        'imagenes/promo.jpg'
-                    )">
-
-                    🛒 Agregar al carrito
-                </button>
+        <!-- Tarjeta Promoción 2 -->
+        <article class="page-card">
+            <img src="imagenes/2x1 capuchino.jfif" alt="2x1 en Cappuccino">
+            <div class="page-card-body">
+                <h2 class="producto-nombre">¡2x1 en Cappuccino! ☕☕</h2>
+                <p>Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno. ¡Ideal para compartir!</p>
+                <p class="producto-precio"><strong>Precio: S/ 14.00</strong></p>
+                <a href="pedidos.html" class="btn btn-secondary add-cart-btn">Añadir al Pedido</a>
             </div>
         </article>
     </section>
 
-
-    <a href="carrito.html">
-        🛒 Ver carrito
-        <span id="contador-carrito">0</span>
-
-    </a>
-    <br>
-
-    <a href="index.html" class="back-link">
-        ← Volver al inicio
-    </a>
-
+    <a href="index.html" class="back-link">← Volver a la página principal</a>
 </main>
-<script src="carrito.js"></script>
+
 </body>
-</html>
 </html>
