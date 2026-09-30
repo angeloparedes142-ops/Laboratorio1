@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedidos | COFFEE</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+:root { --coffee:#3b2418; --coffee2:#6f4530; --cream:#f8f4ef; --gold:#c9934a; --text:#29221e; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--text); font-family:Arial, Helvetica, sans-serif; }
+.navbar-brand strong { color:var(--coffee)!important; }
+.hero { background:linear-gradient(135deg,#2b1a12,#6f4530); color:white; padding:42px 20px; }
+.hero h1 { font-weight:800; }
+.hero p { opacity:.85; }
+.page-wrap { max-width:1400px; margin:auto; }
+.toolbar { background:white; border-radius:18px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,.07); }
+.category-btn { border:1px solid #ddd; background:white; border-radius:999px; padding:9px 18px; font-weight:700; }
+.category-btn.active, .category-btn:hover { background:var(--coffee); color:white; }
+.product-card { border:0; border-radius:20px; overflow:hidden; background:white; height:100%; box-shadow:0 7px 25px rgba(0,0,0,.07); transition:.2s; }
+.product-card:hover { transform:translateY(-3px); }
+.product-img { width:100%; height:190px; object-fit:cover; }
+.product-body { padding:18px; }
+.price { color:var(--coffee2); font-size:1.15rem; font-weight:800; }
+.btn-coffee { background:var(--coffee); color:white; border:0; border-radius:12px; font-weight:700; padding:11px 16px; }
+.btn-coffee:hover { background:#24140e; color:white; }
+.cart { position:sticky; top:20px; background:white; border-radius:20px; box-shadow:0 8px 30px rgba(0,0,0,.09); overflow:hidden; }
+.cart-head { background:var(--coffee); color:white; padding:18px; }
+.cart-items { max-height:430px; overflow:auto; }
+.cart-item { padding:14px; border-bottom:1px solid #eee; }
+.qty-btn { width:30px; height:30px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:bold; }
+.total-row { display:flex; justify-content:space-between; margin:9px 0; }
+.total-final { font-size:1.35rem; font-weight:900; color:var(--coffee); }
+.empty { padding:35px 15px; text-align:center; color:#888; }
+.form-control, .form-select { border-radius:11px; padding:11px; }
+.section-title { font-weight:800; color:var(--coffee); }
+.badge-cat { background:#eee3d8; color:var(--coffee); }
+@media(max-width:991px) { .cart { position:static; margin-top:25px; } }
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+    <div class="container">
+       <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+           <img th:src="@{/imagenes/logo.svg}" alt="COFFEE" style="width:42px;height:42px;object-fit:contain" class="me-2" onerror="this.style.display='none'">
+            <strong>COFFEE</strong>
+        </a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="nav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold active" th:href="@{/pedidos}">Pedidos</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/reservaciones}">Reservaciones</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/usuario}">Usuario</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="page-wrap">
+        <h1>Haz tu pedido ☕</h1>
+        <p class="mb-0">Elige tus bebidas y postres favoritos y arma tu pedido.</p>
+    </div>
+</section>
+<main class="page-wrap px-3 py-4">
+    <div class="toolbar mb-4">
+        <div class="row g-3 align-items-center">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                    <input id="buscador" type="search" class="form-control" placeholder="Buscar café, bebida o postre...">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                    <button class="category-btn active" data-cat="todos">Todos</button>
+                    <button class="category-btn" data-cat="calientes">Calientes</button>
+                    <button class="category-btn" data-cat="frias">Frías</button>
+                    <button class="category-btn" data-cat="postres">Postres</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <h2 class="section-title mb-3">Nuestro menú</h2>
+            <div id="productos" class="row row-cols-1 row-cols-md-2 g-4"></div>
+            <div id="sinResultados" class="empty bg-white rounded-4 d-none mt-3">No encontramos productos con esa búsqueda.</div>
+        </div>
+        <div class="col-lg-4">
+            <aside class="cart">
+                <div class="cart-head d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="h5 mb-1"><i class="bi bi-cart3 me-2"></i>Mi pedido</h3>
+                        <small id="contador">0 productos</small>
+                    </div>
+                    <button id="vaciar" class="btn btn-sm btn-outline-light">Vaciar</button>
+                </div>
+                <div id="cartItems" class="cart-items">
+                    <div class="empty">
+                        <i class="bi bi-basket2 fs-1"></i>
+                        <p class="mb-0 mt-2">Tu carrito está vacío.</p>
+                    </div>
+                </div>
+                <div class="p-3 border-top">
+                    <div class="total-row"><span>Subtotal</span><strong id="subtotal">S/ 0.00</strong></div>
+                    <div class="total-row"><span>Delivery</span><strong id="deliveryText">S/ 0.00</strong></div>
+                    <hr>
+                    <div class="total-row total-final"><span>Total</span><span id="total">S/ 0.00</span></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <section class="bg-white rounded-4 shadow-sm p-4 mt-5">
+        <h2 class="section-title mb-4">Datos del pedido</h2>
+        <form id="pedidoForm">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Nombre completo</label>
+                    <input id="cliente" class="form-control" required minlength="3" placeholder="Ingresa tu nombre">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Teléfono</label>
+                    <input id="telefono" class="form-control" required placeholder="Ej. 987654321">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Tipo de pedido</label>
+                    <select id="tipoPedido" class="form-select" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="local">Consumir en local</option>
+                        <option value="llevar">Para llevar</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Forma de pago</label>
+                    <select id="pago" class="form-select" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="yape-plin">Yape / Plin</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold" id="direccionLabel">Mesa / referencia</label>
+                    <input id="direccion" class="form-control" placeholder="Número de mesa o referencia">
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-bold">Comentarios</label>
+                    <textarea id="comentarios" class="form-control" rows="3" placeholder="Alguna indicación para tu pedido..."></textarea>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-coffee w-100 py-3" type="submit"><i class="bi bi-check2-circle me-2"></i>Confirmar pedido</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
+
+<div class="modal fade" id="productoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 overflow-hidden">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="modalTitulo">Producto</h5>
+                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modalProducto">
+                <label class="form-label fw-bold">Tamaño</label>
+                <select id="modalTamano" class="form-select mb-3"></select>
+                <label class="form-label fw-bold">Cantidad</label>
+                <input id="modalCantidad" type="number" min="1" value="1" class="form-control">
+                <div class="mt-3 p-3 rounded-3" style="background:#f8f4ef">
+                    <div class="d-flex justify-content-between">
+                        <span>Precio unitario</span>
+                        <strong id="modalPrecio">S/ 0.00</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="agregarModal" class="btn btn-coffee">Agregar al pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exitoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 text-center p-4">
+            <div class="display-3 mb-2">☕</div>
+            <h3>¡Pedido registrado!</h3>
+            <p id="mensajeExito" class="text-secondary"></p>
+            <button class="btn btn-coffee" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-4 mt-5">
+    <strong>COFFEE</strong>
+    <div class="text-white-50">Tu cafetería de especialidad.</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const productos = [
+    { name:"Espresso Clásico", price:6, category:"calientes", image:"https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=500&h=350&q=80", description:"Intenso y aromático, extraído a la perfección.", sizes:[{name:"Pequeño (8oz)",price:6},{name:"Mediano (12oz)",price:8}] },
+    { name:"Cappuccino", price:9, category:"calientes", image:"https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=500&h=350&q=80", description:"Espresso, leche vaporizada y espuma sedosa.", sizes:[{name:"Pequeño (8oz)",price:9},{name:"Mediano (12oz)",price:11},{name:"Grande (16oz)",price:13}] },
+    { name:"Americano", price:7, category:"calientes", image:"https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=500&h=350&q=80", description:"Espresso suavizado con agua caliente.", sizes:[{name:"Pequeño (8oz)",price:7},{name:"Mediano (12oz)",price:9},{name:"Grande (16oz)",price:11}] },
+    { name:"Café Mocha", price:11, category:"calientes", image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&h=350&q=80", description:"Espresso, chocolate, leche y crema batida.", sizes:[{name:"Pequeño (8oz)",price:11},{name:"Mediano (12oz)",price:13},{name:"Grande (16oz)",price:15}] },
+    { name:"Latte Macchiato", price:10, category:"calientes", image:"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=500&h=350&q=80", description:"Leche al vapor con una carga concentrada de espresso.", sizes:[{name:"Pequeño (8oz)",price:10},{name:"Mediano (12oz)",price:12},{name:"Grande (16oz)",price:14}] },
+    { name:"Flat White", price:10, category:"calientes", image:"https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=500&h=350&q=80", description:"Doble espresso con leche microespumada.", sizes:[{name:"Mediano (12oz)",price:10}] },
+    { name:"Iced Caramel Latte", price:14, category:"frias", image:"https://images.unsplash.com/photo-1499961024600-ad094db305cc?auto=format&fit=crop&w=500&h=350&q=80", description:"Café helado con caramelo y leche fría.", sizes:[{name:"Mediano (12oz)",price:14},{name:"Grande (16oz)",price:16}] },
+    { name:"Cold Brew", price:12, category:"frias", image:"/imagenes/cafee.jpg", description:"Infusionado en frío por 18 horas.", sizes:[{name:"Mediano (12oz)",price:12},{name:"Grande (16oz)",price:15}] },
+    { name:"Frappé Clásico", price:15, category:"frias", image:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&h=350&q=80", description:"Bebida licuada con hielo, café y crema.", sizes:[{name:"Mediano (12oz)",price:15},{name:"Grande (16oz)",price:18}] },
+    { name:"Cheesecake de Frutos Rojos", price:12, category:"postres", image:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&h=350&q=80", description:"Cheesecake cremoso con frutos rojos.", sizes:[{name:"Porción",price:12}] },
+    { name:"Tiramisú Italiano", price:14, category:"postres", image:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=500&h=350&q=80", description:"Clásico tiramisú italiano.", sizes:[{name:"Porción",price:14}] },
+    { name:"Queque", price:5, category:"postres", image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&h=350&q=80", description:"Queque casero para acompañar tu café.", sizes:[{name:"Porción",price:5}] },
+    { name:"Pay de Manzana", price:10, category:"postres", image:"https://images.unsplash.com/photo-1621743478914-cc32e7d84e0f?auto=format&fit=crop&w=500&h=350&q=80", description:"Pay de manzana casero.", sizes:[{name:"Porción",price:10}] },
+    { name:"Flan Casero", price:8, category:"postres", image:"https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=500&h=350&q=80", description:"Flan casero suave y cremoso.", sizes:[{name:"Porción",price:8}] },
+    { name:"Rollo de Canela", price:10, category:"postres", image:"https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=500&h=350&q=80", description:"Rollo de canela recién preparado.", sizes:[{name:"Porción",price:10}] }
+];
+
+let carrito = JSON.parse(localStorage.getItem("carritoCafePedidos")) || [];
+let categoriaActual = "todos";
+const productosBox = document.getElementById("productos");
+const sinResultados = document.getElementById("sinResultados");
+const cartItems = document.getElementById("cartItems");
+const buscador = document.getElementById("buscador");
+const modal = new bootstrap.Modal(document.getElementById("productoModal"));
+const exitoModal = new bootstrap.Modal(document.getElementById("exitoModal"));
+
+function money(valor) { return "S/ " + Number(valor).toFixed(2); }
+
+function renderProductos() {
+    const texto = buscador.value.trim().toLowerCase();
+    const filtrados = productos.filter(p => {
+        const categoriaOk = categoriaActual === "todos" || p.category === categoriaActual;
+        const textoOk = p.name.toLowerCase().includes(texto) || p.description.toLowerCase().includes(texto);
+        return categoriaOk && textoOk;
+    });
+
+    productosBox.innerHTML = "";
+    filtrados.forEach(p => {
+        const col = document.createElement("div");
+        col.className = "col";
+        col.innerHTML = `
+            <article class="product-card">
+             <img class="product-img" src="${p.image}" alt="${p.name}" onerror="this.src='/imagenes/cafee.jpg'">
+                <div class="product-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                     <h3 class="h5 fw-bold mb-0">${p.name}</h3>
+                        <span class="badge badge-cat">${p.category === "postres" ? "Postre" : p.category === "frias" ? "Fría" : "Café"}</span>
+                    </div>
+                    <p class="text-secondary small flex-grow-1">${p.description}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span class="price">Desde ${money(p.price)}</span>
+                        <button class="btn btn-coffee" onclick="abrirProducto(${productos.indexOf(p)})"><i class="bi bi-plus-lg me-1"></i>Agregar</button>
+                    </div>
+                </div>
+            </article>`;
+        productosBox.appendChild(col);
+    });
+    sinResultados.classList.toggle("d-none", filtrados.length !== 0);
+}
+
+function abrirProducto(index) {
+    const p = productos[index];
+    document.getElementById("modalTitulo").textContent = p.name;
+    document.getElementById("modalProducto").value = index;
+    const select = document.getElementById("modalTamano");
+    select.innerHTML = "";
+    p.sizes.forEach((s, i) => {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = `${s.name} — ${money(s.price)}`;
+        select.appendChild(option);
+    });
+    document.getElementById("modalCantidad").value = 1;
+    actualizarPrecioModal();
+    modal.show();
+}
+
+function actualizarPrecioModal() {
+    const index = Number(document.getElementById("modalProducto").value);
+    const sizeIndex = Number(document.getElementById("modalTamano").value);
+    document.getElementById("modalPrecio").textContent = money(productos[index].sizes[sizeIndex].price);
+}
+
+document.getElementById("modalTamano").addEventListener("change", actualizarPrecioModal);
+
+document.getElementById("agregarModal").addEventListener("click", () => {
+    const index = Number(document.getElementById("modalProducto").value);
+    const sizeIndex = Number(document.getElementById("modalTamano").value);
+    const cantidad = Math.max(1, Number(document.getElementById("modalCantidad").value));
+    const p = productos[index];
+    const size = p.sizes[sizeIndex];
+    const key = `${p.name}-${size.name}`;
+    const existente = carrito.find(item => item.key === key);
+    if (existente) { existente.cantidad += cantidad; } 
+    else { carrito.push({key:key, name:p.name, size:size.name, price:size.price, cantidad:cantidad, category:p.category}); }
+    guardarCarrito();
+    modal.hide();
+});
+
+function guardarCarrito() { localStorage.setItem("carritoCafePedidos", JSON.stringify(carrito)); renderCarrito(); }
+
+function renderCarrito() {
+    if (!carrito.length) {
+        cartItems.innerHTML = `<div class="empty"><i class="bi bi-basket2 fs-1"></i><p class="mb-0 mt-2">Tu carrito está vacío.</p></div>`;
+    } else {
+        cartItems.innerHTML = carrito.map((item, i) => `
+            <div class="cart-item">
+                <div class="d-flex justify-content-between gap-2">
+                    <div><strong>${item.name}</strong><div class="small text-secondary">${item.size}</div><div class="small fw-bold">${money(item.price * item.cantidad)}</div></div>
+                    <button class="btn btn-sm text-danger" onclick="eliminarItem(${i})"><i class="bi bi-trash"></i></button>
+                </div>
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <button class="qty-btn" onclick="cambiarCantidad(${i},-1)">−</button>
+                    <strong>${item.cantidad}</strong>
+                    <button class="qty-btn" onclick="cambiarCantidad(${i},1)">+</button>
+                </div>
+            </div>`).join("");
+    }
+    const cantidad = carrito.reduce((s,i) => s + i.cantidad, 0);
+    const subtotal = carrito.reduce((s,i) => s + i.price * i.cantidad, 0);
+    const delivery = document.getElementById("tipoPedido").value === "delivery" && carrito.length ? 5 : 0;
+    document.getElementById("contador").textContent = `${cantidad} ${cantidad === 1 ? "producto" : "productos"}`;
+    document.getElementById("subtotal").textContent = money(subtotal);
+    document.getElementById("deliveryText").textContent = money(delivery);
+    document.getElementById("total").textContent = money(subtotal + delivery);
+}
+
+function cambiarCantidad(index, cambio) { carrito[index].cantidad += cambio; if (carrito[index].cantidad <= 0) { carrito.splice(index,1); } guardarCarrito(); }
+function eliminarItem(index) { carrito.splice(index,1); guardarCarrito(); }
+document.getElementById("vaciar").addEventListener("click", () => { carrito = []; guardarCarrito(); });
+
+document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        categoriaActual = btn.dataset.cat;
+        renderProductos();
+    });
+});
+
+buscador.addEventListener("input", renderProductos);
+document.getElementById("tipoPedido").addEventListener("change", () => {
+    const delivery = document.getElementById("tipoPedido").value === "delivery";
+    document.getElementById("direccionLabel").textContent = delivery ? "Dirección de entrega" : "Mesa / referencia";
+    document.getElementById("direccion").placeholder = delivery ? "Ingresa tu dirección" : "Número de mesa o referencia";
+    renderCarrito();
+});
+
+document.getElementById("pedidoForm").addEventListener("submit", e => {
+    e.preventDefault();
+    if (!carrito.length) { alert("Agrega al menos un producto al pedido."); return; }
+    if (!e.target.checkValidity()) { e.target.classList.add("was-validated"); return; }
+    
+    const tipo = document.getElementById("tipoPedido").value;
+    const subtotal = carrito.reduce((s,i) => s + i.price * i.cantidad, 0);
+    const delivery = tipo === "delivery" ? 5 : 0;
+    const total = subtotal + delivery;
+    const numero = "CF-" + Date.now().toString().slice(-6);
+    
+    const pedido = {
+        numero:numero, fecha:new Date().toISOString(), cliente:document.getElementById("cliente").value,
+        telefono:document.getElementById("telefono").value, tipoPedido:tipo, pago:document.getElementById("pago").value,
+        direccion:document.getElementById("direccion").value, comentarios:document.getElementById("comentarios").value,
+        productos:carrito, subtotal:subtotal, delivery:delivery, total:total
+    };
+    
+    localStorage.setItem("ultimoPedidoCafe", JSON.stringify(pedido));
+    document.getElementById("mensajeExito").textContent = `Pedido ${numero} registrado por ${money(total)}.`;
+    carrito = [];
+    guardarCarrito();
+    e.target.reset();
+    e.target.classList.remove("was-validated");
+    document.getElementById("direccionLabel").textContent = "Mesa / referencia";
+    exitoModal.show();
+});
+
+renderProductos();
+renderCarrito();
+</script>
+</body>
+</html>

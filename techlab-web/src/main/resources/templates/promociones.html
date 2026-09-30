@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones | Cafetería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="bg-header">
+    <div class="bg-navbar">
+        <div class="container navbar">
+            <a th:href="@{/}" class="navbar-brand">
+                <img th:src="@{/imagenes/logo.svg}" alt="Logo"> Cafetería
+            </a>
+            <nav class="navbar-nav">
+                <a th:href="@{/}" class="nav-link">Inicio</a>
+                <a th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
+                <a th:href="@{/promociones}" class="nav-link">Promociones</a>
+                <a th:href="@{/pedidos}" class="nav-link">Pedidos</a>
+            </nav>
+        </div>
+    </div>
+</header>
+<main class="container page-main">
+    <h1 class="page-title">Promociones Especiales</h1>
+    <p style="margin-bottom: 2rem; color: #666;">Aprovecha nuestros descuentos y combos exclusivos pensados para ti.</p>
+    <section class="page-section">
+        <article class="page-card">
+            <img th:src="@{/imagenes/fondo mañana.jfif}" alt="Combo Mañanero">
+            <div class="page-card-body">
+                <h2 class="producto-nombre">Combo Mañanero ☀️</h2>
+                <p>Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla.</p>
+                <p class="producto-precio"><strong>Precio Oferta: S/ 12.00</strong></p>
+                <a th:href="@{/pedidos}" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
+            </div>
+        </article>
+        <article class="page-card">
+            <img th:src="@{/imagenes/2x1 capuchino.jfif}" alt="2x1 en Cappuccino">
+            <div class="page-card-body">
+                <h2 class="producto-nombre">¡2x1 en Cappuccino! ☕☕</h2>
+                <p>Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno.</p>
+                <p class="producto-precio"><strong>Precio: S/ 14.00</strong></p>
+                <a th:href="@{/pedidos}" class="btn btn-secondary add-cart-btn">Añadir al Pedido</a>
+            </div>
+        </article>
+    </section>
+    <a th:href="@{/}" class="back-link">← Volver a la página principal</a>
+</main>
+</body>
+</html>
