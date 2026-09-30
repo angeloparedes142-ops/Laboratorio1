@@ -26,7 +26,6 @@
 <div class="container my-5">
   <h1 class="text-center mb-4">Reservaciones y Contacto</h1>
 
-  <!-- Mensaje de confirmación: reemplaza al modal de JS de antes -->
   <div class="alert alert-success" th:if="${confirmada != null}">
     ¡Reservación confirmada! Gracias, <strong th:text="${confirmada.nombre}"></strong>.
     Tu mesa quedó reservada para el <strong th:text="${confirmada.fecha}"></strong>
@@ -106,7 +105,6 @@
           <tr><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Personas</th><th>Ocasión</th></tr>
         </thead>
         <tbody>
-          <!-- Thymeleaf recorre la lista "reservas" que manda el controlador; reemplaza al forEach de JS -->
           <tr th:each="r : ${reservas}">
             <td th:text="${r.nombre}"></td>
             <td th:text="${r.fecha}"></td>
