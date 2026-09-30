@@ -15,7 +15,7 @@
 <header style="background-image: url('/imagenes/header.jpg'); background-size: cover; background-position: center; min-height: 400px;">
     <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+            <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
                 <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
                 <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
             </a>
@@ -25,19 +25,19 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav bg-white rounded px-3 py-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" th:href="@{/}">Inicio</a>
+                        <a class="nav-link text-dark fw-bold px-3" href="index.html" th:href="@{/}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">Pedidos</a>
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" th:href="@{/reservaciones}">Reservaciones</a>
+                        <a class="nav-link text-dark fw-bold px-3" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" th:href="@{/usuario}">Usuario</a>
+                        <a class="nav-link text-dark fw-bold px-3" href="usuario.html" th:href="@{/usuario}">Usuario</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">
                             🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span>
                         </a>
                     </li>
@@ -56,7 +56,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">POSTRES</h5>
                     <p class="card-text flex-grow-1">Hechos con ingredientes reales y mucho amor. Cero preservantes, 100% sabor. Desde tortas y cheesecakes hasta alfajores y cupcakes.</p>
-                    <a th:href="@{/postres}" class="btn btn-dark mt-auto">GO</a>
+                    <a href="postres.html" th:href="@{/postres}" class="btn btn-dark mt-auto">GO</a>
                 </div>
             </div>
         </article>
@@ -66,7 +66,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">COFFEE</h5>
                     <p class="card-text flex-grow-1">Empieza tu día o date un break con nuestro café recién preparado. Combinado con nuestros postres, es la dosis de felicidad que necesitas.</p>
-                    <a th:href="@{/coffe}" class="btn btn-dark mt-auto">GO</a>
+                    <a href="coffe.html" th:href="@{/coffe}" class="btn btn-dark mt-auto">GO</a>
                 </div>
             </div>
         </article>
@@ -76,7 +76,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">DESCUENTOS</h5>
                     <p class="card-text flex-grow-1">Porque darte un gustito no debería costar tanto. Esta semana todos nuestros productos tienen descuento especial. No dejes pasar la oportunidad.</p>
-                    <a th:href="@{/promociones}" class="btn btn-dark mt-auto">GO</a>
+                    <a href="promociones.html" th:href="@{/promociones}" class="btn btn-dark mt-auto">GO</a>
                 </div>
             </div>
         </article>

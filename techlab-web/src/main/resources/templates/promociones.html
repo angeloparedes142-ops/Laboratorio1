@@ -11,14 +11,14 @@
 <header class="bg-header">
     <div class="bg-navbar">
         <div class="container navbar">
-            <a th:href="@{/}" class="navbar-brand">
+                <a href="index.html" th:href="@{/}" class="navbar-brand">
                 <img th:src="@{/imagenes/logo.svg}" alt="Logo"> Cafetería
             </a>
             <nav class="navbar-nav">
-                <a th:href="@{/}" class="nav-link">Inicio</a>
-                <a th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
-                <a th:href="@{/promociones}" class="nav-link">Promociones</a>
-                <a th:href="@{/pedidos}" class="nav-link">Pedidos</a>
+                <a href="index.html" th:href="@{/}" class="nav-link">Inicio</a>
+                <a href="usuario.html" th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
+                <a href="promociones.html" th:href="@{/promociones}" class="nav-link">Promociones</a>
+                <a href="pedidos.html" th:href="@{/pedidos}" class="nav-link">Pedidos</a>
             </nav>
         </div>
     </div>
@@ -33,7 +33,7 @@
                 <h2 class="producto-nombre">Combo Mañanero ☀️</h2>
                 <p>Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla.</p>
                 <p class="producto-precio"><strong>Precio Oferta: S/ 12.00</strong></p>
-                <a th:href="@{/pedidos}" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
+                <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
             </div>
         </article>
         <article class="page-card">
@@ -42,11 +42,11 @@
                 <h2 class="producto-nombre">¡2x1 en Cappuccino! ☕☕</h2>
                 <p>Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno.</p>
                 <p class="producto-precio"><strong>Precio: S/ 14.00</strong></p>
-                <a th:href="@{/pedidos}" class="btn btn-secondary add-cart-btn">Añadir al Pedido</a>
+                <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-secondary add-cart-btn">Añadir al Pedido</a>
             </div>
         </article>
     </section>
-    <a th:href="@{/}" class="back-link">← Volver a la página principal</a>
+    <a href="index.html" th:href="@{/}" class="back-link">← Volver a la página principal</a>
 </main>
 </body>
 </html>

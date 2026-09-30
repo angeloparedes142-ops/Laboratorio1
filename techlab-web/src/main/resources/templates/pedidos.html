@@ -42,7 +42,7 @@ body { margin:0; background:var(--cream); color:var(--text); font-family:Arial, 
 <body>
 <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
     <div class="container">
-       <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+           <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
            <img th:src="@{/imagenes/logo.svg}" alt="COFFEE" style="width:42px;height:42px;object-fit:contain" class="me-2" onerror="this.style.display='none'">
             <strong>COFFEE</strong>
         </a>
@@ -51,10 +51,10 @@ body { margin:0; background:var(--cream); color:var(--text); font-family:Arial, 
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="nav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/}">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link fw-bold active" th:href="@{/pedidos}">Pedidos</a></li>
-                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/reservaciones}">Reservaciones</a></li>
-                <li class="nav-item"><a class="nav-link fw-bold" th:href="@{/usuario}">Usuario</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="index.html" th:href="@{/}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold active" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="usuario.html" th:href="@{/usuario}">Usuario</a></li>
             </ul>
         </div>
     </div>
