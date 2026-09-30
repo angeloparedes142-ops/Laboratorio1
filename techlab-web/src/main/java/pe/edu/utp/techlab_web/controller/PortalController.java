@@ -1,16 +1,24 @@
 package pe.edu.utp.techlab_web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PortalController {
 
+    private final ReservaService reservaService;
+
+    public PortalController(ReservaService reservaService) {
+        this.reservaService = reservaService;
+    }
+
     @GetMapping("/")
     public String inicio() {
         // Devuelve el nombre exacto de tu archivo HTML sin la extensión .html
-        return "index"; 
+        return "index";
     }
+
     @GetMapping("/pedidos")
     public String pedidos() {
         return "pedidos"; // Esto buscará pedidos.html en templates/
@@ -18,7 +26,9 @@ public class PortalController {
 
     // Nueva ruta para reservaciones
     @GetMapping("/reservaciones")
-    public String reservaciones() {
+    public String reservaciones(Model model) {
+        model.addAttribute("reserva", new Reserva());
+        model.addAttribute("reservas", reservaService.listar());
         return "reservaciones"; // Esto buscará reservaciones.html
     }
 
@@ -27,18 +37,19 @@ public class PortalController {
     public String usuario() {
         return "usuario"; // Esto buscará usuario.html
     }
-    
-     @GetMapping("/coffe")
+
+    @GetMapping("/coffe")
     public String coffe() {
-        return "coffe"; // Esto buscará usuario.html
+        return "coffe";
     }
+
     @GetMapping("/postres")
     public String postres() {
-        return "postres"; // Esto buscará usuario.html
+        return "postres";
     }
-     @GetMapping("/promociones")
+
+    @GetMapping("/promociones")
     public String promociones() {
-        return "promociones"; // Esto buscará usuario.html
+        return "promociones";
     }
-     
 }
