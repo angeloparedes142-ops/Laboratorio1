@@ -3,56 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil | Cafetería</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Mi Perfil | COFFEE</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+    <!-- Librerías de Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
-<body>
-<header class="bg-header">
-    <div class="bg-navbar">
-        <div class="container navbar">
-                <a href="index.html" th:href="@{/}" class="navbar-brand">
-                <img th:src="@{/imagenes/logo.svg}" alt="Logo"> Cafetería
+<body class="bg-light">
+<!-- Mismo Header/Nav del Index -->
+<header style="background-image: url('/imagenes/header.jpg'); background-size: cover; background-position: center; min-height: 150px;">
+    <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
+                <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
             </a>
-            <nav class="navbar-nav">
-                <a href="index.html" th:href="@{/}" class="nav-link">Inicio</a>
-                <a href="usuario.html" th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
-                <a href="promociones.html" th:href="@{/promociones}" class="nav-link">Promociones</a>
-                <a href="pedidos.html" th:href="@{/pedidos}" class="nav-link">Pedidos</a>
-            </nav>
-        </div>
-    </div>
-</header>
-
-<main class="container page-main">
-    <div class="page-card" style="margin: 0 auto; background-color: #fff; color: #333;">
-        <div class="header-perfil" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/imagenes/fondo cafe.jfif') center/cover; color: white; padding: 40px 20px; text-align: center;">
-            <img th:src="@{/imagenes/foto.jfif}" alt="Avatar" class="avatar" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; margin-bottom: 10px;">
-            <h1 class="page-title" style="margin:0; color: white;">¡Hola, Coffee Lover! 👋</h1>
-            <p style="margin:5px 0 0;">☕ Miembro VIP - Amante del buen café</p>
-        </div>
-        <div class="seccion" style="padding: 20px; text-align: left;">
-            <h2 style="border-bottom: 2px solid #f0e6d2; padding-bottom: 10px; margin-top: 0; color: #3b2416;">Mis Favoritos ❤️</h2>
-            <div class="lista-favoritos" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
-                <div class="fav-item" style="min-width: 120px; text-align: center;">
-                    <img th:src="@{/imagenes/capuchino.jfif}" alt="Capuccino" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Capuccino</p>
-                </div>
-                <div class="fav-item" style="min-width: 120px; text-align: center;">
-                    <img th:src="@{/imagenes/roscas.jfif}" alt="Postres" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Postres</p>
-                </div>
-                <div class="fav-item" style="min-width: 120px; text-align: center;">
-                    <img th:src="@{/imagenes/frape.jfif}" alt="Frappé" style="width: 100%; height: 90px; border-radius: 10px; object-fit: cover;">
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #333;">Frappé Moka</p>
-                </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav bg-white rounded px-3 py-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="index.html" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="usuario.html" th:href="@{/usuario}">Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">
+                            🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="seccion" style="padding: 20px; text-align: center; border-top: 1px solid #eee;">
-            <a href="index.html" th:href="@{/}" class="btn btn-primary">🏠 Volver a la Tienda</a>
-            <a href="promociones.html" th:href="@{/promociones}" class="btn btn-secondary">🎟️ Ver Promos</a>
+    </nav>
+</header>
+
+<main class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Tarjeta de Perfil Bootstrap -->
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+                
+                <!-- Encabezado del Perfil -->
+                <div class="card-header text-center text-white p-5 border-0" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/imagenes/fondo-cafe.jfif') center/cover;">
+                    <img th:src="@{/imagenes/foto.jfif}" alt="Avatar" class="rounded-circle border border-4 border-white shadow mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h2 class="fw-bold mb-1">¡Hola, Coffee Lover! 👋</h2>
+                    <p class="mb-0 fs-5 text-light">☕ Miembro VIP</p>
+                </div>
+
+                <!-- Cuerpo de la Tarjeta (Favoritos) -->
+                <div class="card-body p-4 bg-white">
+                    <h4 class="border-bottom pb-2 mb-4 fw-bold">Mis Favoritos ❤️</h4>
+                    
+                    <div class="d-flex gap-3 overflow-auto pb-2" style="scrollbar-width: thin;">
+                        <div class="text-center" style="min-width: 120px;">
+                            <img th:src="@{/imagenes/capuchino.jfif}" alt="Capuccino" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
+                            <span class="fw-semibold text-muted">Capuccino</span>
+                        </div>
+                        <div class="text-center" style="min-width: 120px;">
+                            <img th:src="@{/imagenes/roscas.jfif}" alt="Postres" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
+                            <span class="fw-semibold text-muted">Postres</span>
+                        </div>
+                        <div class="text-center" style="min-width: 120px;">
+                            <img th:src="@{/imagenes/frape.jfif}" alt="Frappé" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
+                            <span class="fw-semibold text-muted">Frappé Moka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones Inferiores -->
+                <div class="card-footer bg-white border-top-0 p-4 text-center">
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="index.html" th:href="@{/}" class="btn btn-dark px-4 py-2 me-md-2">🏠 Volver a la Tienda</a>
+                        <a href="promociones.html" th:href="@{/promociones}" class="btn btn-outline-dark px-4 py-2">🎟️ Ver Promos</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
