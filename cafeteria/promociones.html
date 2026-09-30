@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones | Cafetería</title>
-    <!-- Tipografía Raleway -->
+    <title>Promociones Exclusivas | Cafetería</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Enlace a tu archivo de estilos externo -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <header class="bg-header">
     <div class="bg-navbar">
-        <div class="container navbar">
+        <div class="container navbar fade-in-up">
             <a href="index.html" class="navbar-brand">
                 <img src="imagenes/logo.svg" alt="Logo Cafetería">
                 Cafetería
@@ -21,42 +19,98 @@
             <nav class="navbar-nav">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="usuario.html" class="nav-link">Mi Perfil</a>
-                <a href="promociones.html" class="nav-link">Promociones</a>
+                <a href="promociones.html" class="nav-link" style="color: var(--color-gold);">Promociones</a>
                 <a href="pedidos.html" class="nav-link">Pedidos</a>
             </nav>
         </div>
     </div>
 </header>
 
-<main class="container page-main">
-    <h1 class="page-title">Promociones Especiales</h1>
-    <p style="margin-bottom: 2rem; color: #666;">Aprovecha nuestros descuentos y combos exclusivos pensados para ti.</p>
+<main class="container page-main fade-in-up delay-1" style="max-width: 1100px;">
+    
+    <h1 class="page-title">Ofertas y Promociones</h1>
+    <p style="margin-bottom: 2rem; color: #666; text-align: center; font-size: 1.2rem;">Aprovecha nuestros descuentos, combos exclusivos y ediciones limitadas pensadas para ti.</p>
 
-    <section class="page-section">
+    <!-- Banner Especial (NUEVO) -->
+    <div class="promo-banner fade-in-up delay-2">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">⚡ OFERTA RELÁMPAGO ⚡</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 20px;">Llévate un termo de acero inoxidable de edición limitada con 50% de descuento en la compra de cualquier combo familiar.</p>
+        <p style="font-size: 1.5rem; font-weight: bold; color: #F9E8A2;">Termina en: 04:35:22</p>
+        <a href="pedidos.html" class="btn btn-info btn-pulse" style="font-size: 1.2rem; padding: 10px 30px; margin-top: 15px;">¡Lo quiero ya!</a>
+    </div>
+
+    <!-- Grilla de Promociones Ampliada -->
+    <section class="page-section fade-in-up delay-3">
+        
         <!-- Tarjeta Promoción 1 -->
         <article class="page-card">
+            <div class="badge-promo">¡Más vendido!</div>
             <img src="imagenes/fondo mañana.jfif" alt="Combo Mañanero">
             <div class="page-card-body">
                 <h2 class="producto-nombre">Combo Mañanero ☀️</h2>
-                <p>Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla recién horneado.</p>
-                <p class="producto-precio"><strong>Precio Oferta: S/ 12.00</strong></p>
+                <p>Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla recién horneado. La mejor forma de iniciar.</p>
+                <p class="producto-precio">
+                    <span style="text-decoration: line-through; color: #999; font-size: 1rem; margin-right: 10px;">S/ 18.00</span> 
+                    <strong>S/ 12.00</strong>
+                </p>
                 <a href="pedidos.html" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
             </div>
         </article>
 
         <!-- Tarjeta Promoción 2 -->
         <article class="page-card">
+            <div class="badge-promo" style="background-color: var(--color-secondary);">¡Martes y Jueves!</div>
             <img src="imagenes/2x1 capuchino.jfif" alt="2x1 en Cappuccino">
             <div class="page-card-body">
                 <h2 class="producto-nombre">¡2x1 en Cappuccino! ☕☕</h2>
-                <p>Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno. ¡Ideal para compartir!</p>
-                <p class="producto-precio"><strong>Precio: S/ 14.00</strong></p>
+                <p>Todos los martes y jueves disfruta de dos deliciosos cappuccinos cremosos al precio de uno. ¡Ideal para compartir con amigos!</p>
+                <p class="producto-precio">
+                    <span style="text-decoration: line-through; color: #999; font-size: 1rem; margin-right: 10px;">S/ 28.00</span>
+                    <strong>S/ 14.00</strong>
+                </p>
                 <a href="pedidos.html" class="btn btn-secondary add-cart-btn">Añadir al Pedido</a>
             </div>
         </article>
+
+        <!-- Tarjeta Promoción 3 (NUEVO) -->
+        <article class="page-card">
+            <div class="badge-promo" style="background-color: #8B4513;">Especial Fin de Semana</div>
+            <img src="imagenes/roscas.jfif" alt="Festival de Postres">
+            <div class="page-card-body">
+                <h2 class="producto-nombre">Festival Dulce 🍰</h2>
+                <p>En la compra de cualquier bebida tamaño grande, llévate el postre del día a mitad de precio. Válido viernes, sábados y domingos.</p>
+                <p class="producto-precio"><strong>Postre al 50% DCTO.</strong></p>
+                <a href="pedidos.html" class="btn btn-dark add-cart-btn">Añadir al Pedido</a>
+            </div>
+        </article>
+
+        <!-- Tarjeta Promoción 4 (NUEVO) -->
+        <article class="page-card">
+            <div class="badge-promo" style="background-color: #4CAF50;">¡Refrescante!</div>
+            <img src="imagenes/frape.jfif" alt="Tardes de Frappé">
+            <div class="page-card-body">
+                <h2 class="producto-nombre">Tardes Heladas ❄️</h2>
+                <p>De 3 PM a 6 PM, haz un *Upgrade* gratis de tamaño regular a grande en todos nuestros frappés y bebidas frías.</p>
+                <p class="producto-precio"><strong>¡Upgrade GRATIS!</strong></p>
+                <a href="pedidos.html" class="btn btn-primary add-cart-btn">Añadir al Pedido</a>
+            </div>
+        </article>
+
     </section>
 
-    <a href="index.html" class="back-link">← Volver a la página principal</a>
+    <!-- Sección de Suscripción (NUEVO) -->
+    <div class="fade-in-up delay-3" style="background-color: #fdfaf5; border: 1px dashed var(--color-gold); border-radius: 1rem; padding: 40px 20px; text-align: center; margin-top: 40px;">
+        <h3 style="color: var(--color-coffee-dark); font-size: 2rem; margin-top: 0;">¿Quieres más ofertas secretas? 🤫</h3>
+        <p style="color: #666; margin-bottom: 20px; font-size: 1.1rem;">Únete al club y recibe cupones exclusivos directos en tu correo, además de un café gratis en tu cumpleaños.</p>
+        <form style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
+            <input type="email" placeholder="Tu correo electrónico" style="padding: 12px 20px; border-radius: 30px; border: 1px solid #ccc; flex: 1; min-width: 250px; outline: none; font-family: inherit;">
+            <button type="button" class="btn btn-danger" style="border-radius: 30px;">¡Suscribirme!</button>
+        </form>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="index.html" class="back-link">← Volver a la página principal</a>
+    </div>
 </main>
 
 </body>
