@@ -1,6 +1,8 @@
-package pe.edu.utp.techlabweb.controller;
+package pe.edu.utp.techlabweb.service;
 
 import org.springframework.stereotype.Service;
+
+import pe.edu.utp.techlabweb.dto.Reserva;
 
 import java.util.ArrayList;
 import java.util.List;

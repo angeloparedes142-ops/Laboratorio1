@@ -1,6 +1,9 @@
 package pe.edu.utp.techlabweb.controller;
 
 import jakarta.validation.Valid;
+import pe.edu.utp.techlabweb.dto.Reserva;
+import pe.edu.utp.techlabweb.service.ReservaService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
