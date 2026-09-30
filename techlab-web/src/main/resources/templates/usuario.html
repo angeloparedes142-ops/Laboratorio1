@@ -11,14 +11,14 @@
 <header class="bg-header">
     <div class="bg-navbar">
         <div class="container navbar">
-            <a th:href="@{/}" class="navbar-brand">
+                <a href="index.html" th:href="@{/}" class="navbar-brand">
                 <img th:src="@{/imagenes/logo.svg}" alt="Logo"> Cafetería
             </a>
             <nav class="navbar-nav">
-                <a th:href="@{/}" class="nav-link">Inicio</a>
-                <a th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
-                <a th:href="@{/promociones}" class="nav-link">Promociones</a>
-                <a th:href="@{/pedidos}" class="nav-link">Pedidos</a>
+                <a href="index.html" th:href="@{/}" class="nav-link">Inicio</a>
+                <a href="usuario.html" th:href="@{/usuario}" class="nav-link">Mi Perfil</a>
+                <a href="promociones.html" th:href="@{/promociones}" class="nav-link">Promociones</a>
+                <a href="pedidos.html" th:href="@{/pedidos}" class="nav-link">Pedidos</a>
             </nav>
         </div>
     </div>
@@ -49,8 +49,8 @@
             </div>
         </div>
         <div class="seccion" style="padding: 20px; text-align: center; border-top: 1px solid #eee;">
-            <a th:href="@{/}" class="btn btn-primary">🏠 Volver a la Tienda</a>
-            <a th:href="@{/promociones}" class="btn btn-secondary">🎟️ Ver Promos</a>
+            <a href="index.html" th:href="@{/}" class="btn btn-primary">🏠 Volver a la Tienda</a>
+            <a href="promociones.html" th:href="@{/promociones}" class="btn btn-secondary">🎟️ Ver Promos</a>
         </div>
     </div>
 </main>
