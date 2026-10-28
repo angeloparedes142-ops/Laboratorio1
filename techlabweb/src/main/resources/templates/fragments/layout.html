@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- FRAGMENTO DE CABECERA -->
+    <header th:fragment="cabecera" style="background-image: url('/imagenes/header.jpg'); background-size: cover; background-position: center;">
+        <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+                    <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                    <strong style="color: #333;">COFFEE</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav bg-white rounded px-3 py-1">
+                        <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">Pedidos</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/reservaciones}">Reservaciones</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/usuario}">Usuario</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- FRAGMENTO DE PIE DE PÁGINA -->
+    <footer th:fragment="pie" class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-1 fw-semibold h5">COFFEE</p>
+            <p class="mb-0 text-white-50"><small>Tu cafetería de especialidad.</small></p>
+        </div>
+    </footer>
+</body>
+</html>
