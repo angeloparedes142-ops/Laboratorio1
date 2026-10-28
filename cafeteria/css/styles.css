@@ -418,7 +418,43 @@ body {
 
 
 
+@media print {
+    body * {
+        visibility: hidden;
+    }
 
+    #comprobante,
+    #comprobante * {
+        visibility: visible;
+    }
+
+    #comprobante {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        box-shadow: none;
+        background: white;
+    }
+
+    .no-imprimir {
+        display: none !important;
+    }
+
+    #comprobante table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #comprobante th,
+    #comprobante td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+}
 
 
 
