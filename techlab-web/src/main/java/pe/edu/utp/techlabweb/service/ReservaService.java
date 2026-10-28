@@ -3,30 +3,35 @@ package pe.edu.utp.techlabweb.service;
 import org.springframework.stereotype.Service;
 
 import pe.edu.utp.techlabweb.dto.Reserva;
+import pe.edu.utp.techlabweb.repository.ReservaRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Guarda las reservaciones en memoria y las comparte entre
+ * Guarda las reservaciones en MySQL (con JPA/Hibernate) y las comparte entre
  * PortalController (GET) y ReservaFormController (POST/eliminar).
  */
 @Service
 public class ReservaService {
 
-    private final List<Reserva> reservas = new ArrayList<>();
+    private final ReservaRepository repository;
+
+    public ReservaService(ReservaRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Reserva> listar() {
-        return reservas;
+        return repository.findAll();
     }
 
     public void agregar(Reserva reserva) {
-        reservas.add(reserva);
+        repository.save(reserva);
     }
 
     public void eliminar(int index) {
-        if (index >= 0 && index < reservas.size()) {
-            reservas.remove(index);
+        List<Reserva> lista = repository.findAll();
+        if (index >= 0 && index < lista.size()) {
+            repository.deleteById(lista.get(index).getId());
         }
     }
 }

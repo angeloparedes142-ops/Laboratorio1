@@ -1,10 +1,22 @@
 package pe.edu.utp.techlabweb.dto;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+@Entity
+@Table(name = "reservas")
 public class Reserva {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
@@ -23,9 +35,19 @@ public class Reserva {
     private int personas;
 
     private String ocasion;
+
+    @Column(length = 500)
     private String comentario;
 
     public Reserva() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
