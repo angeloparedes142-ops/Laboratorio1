@@ -1,668 +1,531 @@
 ```php
 <?php
+declare(strict_types=1);
 
 session_start();
-require_once "conexion.php";
 
-header("Content-Type: application/json; charset=utf-8");
+header('Content-Type: application/json; charset=utf-8');
 
-function responder($data, $status = 200)
+require_once __DIR__ . '/conexion.php';
+
+/*
+|--------------------------------------------------------------------------
+| Respuesta JSON
+|--------------------------------------------------------------------------
+*/
+function responder(array $datos, int $codigo = 200): void
 {
-    http_response_code($status);
-
+    http_response_code($codigo);
     echo json_encode(
-        $data,
-        JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
+        $datos,
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
     );
-
     exit;
 }
 
-function exigirMetodo($metodo)
+/*
+|--------------------------------------------------------------------------
+| Leer datos JSON
+|--------------------------------------------------------------------------
+*/
+function leerJson(): array
 {
-    if ($_SERVER["REQUEST_METHOD"] !== $metodo) {
-        header("Allow: $metodo");
-        responder(["error" => "Método no permitido."], 405);
+    $contenido = file_get_contents('php://input');
+    $datos = json_decode($contenido ?: '{}', true);
+
+    if (!is_array($datos)) {
+        responder(['error' => 'Los datos enviados no son válidos.'], 400);
     }
+
+    return $datos;
 }
 
-function validarCsrf()
+/*
+|--------------------------------------------------------------------------
+| Validar token de seguridad
+|--------------------------------------------------------------------------
+*/
+function validarToken(): void
 {
-    $token = $_SERVER["HTTP_X_CSRF_TOKEN"] ?? "";
+    $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+    $tokenSesion = $_SESSION['csrf_token'] ?? '';
 
     if (
-        empty($_SESSION["csrf_token"]) ||
-        !is_string($token) ||
-        !hash_equals($_SESSION["csrf_token"], $token)
+        $tokenSesion === '' ||
+        $token === '' ||
+        !hash_equals($tokenSesion, $token)
     ) {
-        responder(["error" => "Token de seguridad inválido."], 403);
+        responder(['error' => 'Token de seguridad inválido. Recarga la página.'], 403);
     }
 }
 
-function entrada()
+/*
+|--------------------------------------------------------------------------
+| Validar identificador
+|--------------------------------------------------------------------------
+*/
+function validarId($id): int
 {
-    $data = json_decode(file_get_contents("php://input"), true);
+    $id = filter_var($id, FILTER_VALIDATE_INT);
 
-    if (!is_array($data)) {
-        responder(["error" => "Datos JSON inválidos."], 400);
+    if ($id === false || $id < 1) {
+        responder(['error' => 'El identificador no es válido.'], 400);
     }
 
-    return $data;
+    return $id;
 }
 
-$accion = $_GET["accion"] ?? "";
+/*
+|--------------------------------------------------------------------------
+| Obtener pedido y sus productos
+|--------------------------------------------------------------------------
+*/
+function obtenerPedido(PDO $pdo, int $id): array
+{
+    $consulta = $pdo->prepare(
+        'SELECT id, cliente, subtotal, total, estado, fecha
+         FROM pedidos
+         WHERE id = ?'
+    );
 
+    $consulta->execute([$id]);
+    $pedido = $consulta->fetch(PDO::FETCH_ASSOC);
+
+    if (!$pedido) {
+        responder(['error' => 'El pedido no existe.'], 404);
+    }
+
+    $consultaDetalle = $pdo->prepare(
+        'SELECT
+            dp.id,
+            dp.producto_id,
+            p.nombre AS producto_nombre,
+            dp.cantidad,
+            dp.precio,
+            dp.subtotal
+         FROM detalle_pedidos dp
+         INNER JOIN productos p ON p.id = dp.producto_id
+         WHERE dp.pedido_id = ?
+         ORDER BY dp.id ASC'
+    );
+
+    $consultaDetalle->execute([$id]);
+
+    $pedido['items'] = $consultaDetalle->fetchAll(PDO::FETCH_ASSOC);
+
+    return $pedido;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Actualizar subtotal y total de un pedido
+|--------------------------------------------------------------------------
+*/
+function recalcularPedido(PDO $pdo, int $pedidoId): void
+{
+    $consulta = $pdo->prepare(
+        'SELECT COALESCE(SUM(subtotal), 0)
+         FROM detalle_pedidos
+         WHERE pedido_id = ?'
+    );
+
+    $consulta->execute([$pedidoId]);
+
+    $total = (float) $consulta->fetchColumn();
+
+    $actualizar = $pdo->prepare(
+        'UPDATE pedidos
+         SET subtotal = ?, total = ?
+         WHERE id = ?'
+    );
+
+    $actualizar->execute([
+        round($total, 2),
+        round($total, 2),
+        $pedidoId
+    ]);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Ejecutar acciones
+|--------------------------------------------------------------------------
+*/
 try {
-    switch ($accion) {
+    if (!isset($pdo) || !$pdo instanceof PDO) {
+        throw new RuntimeException(
+            'No se encontró la conexión PDO en conexion.php.'
+        );
+    }
 
-        // A: Listar productos disponibles.
-        case "productos":
+    $accion = $_GET['accion'] ?? '';
+    $metodo = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-            exigirMetodo("GET");
+    /*
+    |----------------------------------------------------------------------
+    | LISTAR PRODUCTOS
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'productos' && $metodo === 'GET') {
+        $consulta = $pdo->query(
+            'SELECT id, nombre, precio
+             FROM productos
+             WHERE activo = 1
+             ORDER BY nombre ASC'
+        );
 
-            $stmt = $pdo->query(
-                "SELECT id, nombre, precio
-                 FROM productos
-                 WHERE activo = 1
-                 ORDER BY nombre"
+        responder([
+            'ok' => true,
+            'productos' => $consulta->fetchAll(PDO::FETCH_ASSOC)
+        ]);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | LISTAR PEDIDOS
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'listar' && $metodo === 'GET') {
+        $consulta = $pdo->query(
+            'SELECT id, cliente, subtotal, total, estado, fecha
+             FROM pedidos
+             ORDER BY id DESC'
+        );
+
+        responder([
+            'ok' => true,
+            'pedidos' => $consulta->fetchAll(PDO::FETCH_ASSOC)
+        ]);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | TODAS LAS DEMÁS ACCIONES REQUIEREN TOKEN
+    |----------------------------------------------------------------------
+    */
+    validarToken();
+
+    /*
+    |----------------------------------------------------------------------
+    | CREAR PEDIDO
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'crear' && $metodo === 'POST') {
+        $datos = leerJson();
+
+        $cliente = trim((string) ($datos['cliente'] ?? ''));
+        $items = $datos['items'] ?? [];
+
+        if ($cliente === '') {
+            responder(['error' => 'Ingresa el nombre del cliente.'], 422);
+        }
+
+        if (!is_array($items) || count($items) === 0) {
+            responder(['error' => 'Agrega al menos un producto al pedido.'], 422);
+        }
+
+        $pdo->beginTransaction();
+
+        try {
+            $insertarPedido = $pdo->prepare(
+                'INSERT INTO pedidos
+                    (cliente, subtotal, total, estado, fecha)
+                 VALUES (?, 0, 0, ?, NOW())'
             );
 
-            responder($stmt->fetchAll());
+            $insertarPedido->execute([$cliente, 'Pendiente']);
 
-            break;
+            $pedidoId = (int) $pdo->lastInsertId();
 
-        // A y E: Listar pedidos.
-        case "listar":
-
-            exigirMetodo("GET");
-
-            $stmt = $pdo->query(
-                "SELECT
-                    p.id,
-                    p.cliente,
-                    p.fecha,
-                    p.estado,
-                    p.total,
-                    COUNT(d.id) AS lineas
-                 FROM pedidos p
-                 LEFT JOIN detalle_pedidos d
-                    ON d.pedido_id = p.id
-                 GROUP BY
-                    p.id,
-                    p.cliente,
-                    p.fecha,
-                    p.estado,
-                    p.total
-                 ORDER BY p.id DESC"
+            $insertarDetalle = $pdo->prepare(
+                'INSERT INTO detalle_pedidos
+                    (pedido_id, producto_id, cantidad, precio, subtotal)
+                 VALUES (?, ?, ?, ?, ?)'
             );
-
-            responder($stmt->fetchAll());
-
-            break;
-
-        // A, B, C y D: Registrar un pedido.
-        case "crear":
-
-            exigirMetodo("POST");
-            validarCsrf();
-
-            $data = entrada();
-
-            $cliente = trim($data["cliente"] ?? "");
-            $items = $data["items"] ?? [];
-
-            if (
-                $cliente === "" ||
-                mb_strlen($cliente) > 150
-            ) {
-                responder(
-                    ["error" => "Nombre de cliente inválido."],
-                    422
-                );
-            }
-
-            if (
-                !is_array($items) ||
-                count($items) < 1 ||
-                count($items) > 100
-            ) {
-                responder(
-                    ["error" => "El pedido debe tener productos."],
-                    422
-                );
-            }
-
-            $cantidades = [];
 
             foreach ($items as $item) {
-
-                $id = filter_var(
-                    $item["producto_id"] ?? null,
+                $productoId = filter_var(
+                    $item['producto_id'] ?? null,
                     FILTER_VALIDATE_INT
                 );
 
                 $cantidad = filter_var(
-                    $item["cantidad"] ?? null,
+                    $item['cantidad'] ?? null,
                     FILTER_VALIDATE_INT
                 );
 
                 if (
-                    $id === false || $id === null || $id < 1 ||
-                    $cantidad === false || $cantidad === null ||
-                    $cantidad < 1 || $cantidad > 1000
+                    $productoId === false ||
+                    $productoId === null ||
+                    $productoId < 1 ||
+                    $cantidad === false ||
+                    $cantidad === null ||
+                    $cantidad < 1
                 ) {
-                    responder(
-                        ["error" => "Producto o cantidad inválidos."],
-                        422
+                    throw new DomainException(
+                        'Hay productos con identificadores o cantidades inválidos.'
                     );
                 }
 
-                $cantidades[$id] =
-                    ($cantidades[$id] ?? 0) + $cantidad;
+                $consultaProducto = $pdo->prepare(
+                    'SELECT id, precio
+                     FROM productos
+                     WHERE id = ? AND activo = 1'
+                );
 
-                if ($cantidades[$id] > 1000) {
-                    responder(
-                        ["error" => "Cantidad máxima excedida."],
-                        422
-                    );
-                }
-            }
-
-            $pdo->beginTransaction();
-
-            $stmtProducto = $pdo->prepare(
-                "SELECT id, nombre, precio
-                 FROM productos
-                 WHERE id = ? AND activo = 1"
-            );
-
-            $productosPedido = [];
-            $totalCentimos = 0;
-
-            foreach ($cantidades as $id => $cantidad) {
-
-                $stmtProducto->execute([$id]);
-                $producto = $stmtProducto->fetch();
+                $consultaProducto->execute([$productoId]);
+                $producto = $consultaProducto->fetch(PDO::FETCH_ASSOC);
 
                 if (!$producto) {
                     throw new DomainException(
-                        "Uno de los productos no existe o está inactivo."
+                        'Uno de los productos no existe o está inactivo.'
                     );
                 }
 
-                $precioCentimos = (int) round(
-                    (float) $producto["precio"] * 100
-                );
+                $precio = (float) $producto['precio'];
+                $subtotal = round($precio * $cantidad, 2);
 
-                $subtotalCentimos =
-                    $precioCentimos * $cantidad;
-
-                $totalCentimos += $subtotalCentimos;
-
-                $productosPedido[] = [
-                    "id" => (int) $producto["id"],
-                    "nombre" => $producto["nombre"],
-                    "precio" => $precioCentimos,
-                    "cantidad" => $cantidad,
-                    "subtotal" => $subtotalCentimos
-                ];
-            }
-
-            if ($totalCentimos > 999999999) {
-                throw new DomainException(
-                    "El total del pedido es demasiado alto."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "INSERT INTO pedidos (cliente, total)
-                 VALUES (?, ?)"
-            );
-
-            $stmt->execute([
-                $cliente,
-                number_format(
-                    $totalCentimos / 100,
-                    2,
-                    ".",
-                    ""
-                )
-            ]);
-
-            $pedidoId = (int) $pdo->lastInsertId();
-
-            $stmtDetalle = $pdo->prepare(
-                "INSERT INTO detalle_pedidos
-                    (
-                        pedido_id,
-                        producto_id,
-                        producto_nombre,
-                        cantidad,
-                        precio,
-                        subtotal
-                    )
-                 VALUES (?, ?, ?, ?, ?, ?)"
-            );
-
-            foreach ($productosPedido as $item) {
-
-                $stmtDetalle->execute([
+                $insertarDetalle->execute([
                     $pedidoId,
-                    $item["id"],
-                    $item["nombre"],
-                    $item["cantidad"],
-                    number_format(
-                        $item["precio"] / 100,
-                        2,
-                        ".",
-                        ""
-                    ),
-                    number_format(
-                        $item["subtotal"] / 100,
-                        2,
-                        ".",
-                        ""
-                    )
+                    $productoId,
+                    $cantidad,
+                    $precio,
+                    $subtotal
                 ]);
             }
 
+            recalcularPedido($pdo, $pedidoId);
+
             $pdo->commit();
 
             responder([
-                "mensaje" => "Pedido registrado correctamente.",
-                "pedido_id" => $pedidoId,
-                "total" => number_format(
-                    $totalCentimos / 100,
-                    2,
-                    ".",
-                    ""
-                )
+                'ok' => true,
+                'mensaje' => 'Pedido registrado correctamente.',
+                'id' => $pedidoId
             ], 201);
-
-            break;
-
-        // B: Modificar la cantidad de un producto.
-        case "modificar":
-
-            exigirMetodo("POST");
-            validarCsrf();
-
-            $data = entrada();
-
-            $pedidoId = filter_var(
-                $data["pedido_id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            $detalleId = filter_var(
-                $data["detalle_id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            $cantidad = filter_var(
-                $data["cantidad"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            if (
-                !$pedidoId ||
-                !$detalleId ||
-                $cantidad === false ||
-                $cantidad === null ||
-                $cantidad < 1 ||
-                $cantidad > 1000
-            ) {
-                responder(
-                    ["error" => "Datos inválidos."],
-                    422
-                );
+        } catch (Throwable $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
             }
 
-            $pdo->beginTransaction();
-
-            $stmt = $pdo->prepare(
-                "SELECT estado
-                 FROM pedidos
-                 WHERE id = ?
-                 FOR UPDATE"
-            );
-
-            $stmt->execute([$pedidoId]);
-            $pedido = $stmt->fetch();
-
-            if (
-                !$pedido ||
-                $pedido["estado"] !== "Pendiente"
-            ) {
-                throw new DomainException(
-                    "Solo se pueden modificar pedidos pendientes."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "SELECT precio
-                 FROM detalle_pedidos
-                 WHERE id = ? AND pedido_id = ?
-                 FOR UPDATE"
-            );
-
-            $stmt->execute([$detalleId, $pedidoId]);
-            $detalle = $stmt->fetch();
-
-            if (!$detalle) {
-                throw new DomainException(
-                    "Detalle de pedido no encontrado."
-                );
-            }
-
-            $precioCentimos = (int) round(
-                (float) $detalle["precio"] * 100
-            );
-
-            $subtotalCentimos =
-                $precioCentimos * $cantidad;
-
-            if ($subtotalCentimos > 999999999) {
-                throw new DomainException(
-                    "Subtotal demasiado alto."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "UPDATE detalle_pedidos
-                 SET cantidad = ?, subtotal = ?
-                 WHERE id = ? AND pedido_id = ?"
-            );
-
-            $stmt->execute([
-                $cantidad,
-                number_format(
-                    $subtotalCentimos / 100,
-                    2,
-                    ".",
-                    ""
-                ),
-                $detalleId,
-                $pedidoId
-            ]);
-
-            // Recalcular el total del pedido.
-            $stmt = $pdo->prepare(
-                "UPDATE pedidos
-                 SET total = (
-                    SELECT COALESCE(SUM(subtotal), 0)
-                    FROM detalle_pedidos
-                    WHERE pedido_id = ?
-                 )
-                 WHERE id = ?"
-            );
-
-            $stmt->execute([$pedidoId, $pedidoId]);
-
-            $pdo->commit();
-
-            responder([
-                "mensaje" => "Cantidad actualizada correctamente."
-            ]);
-
-            break;
-
-        // B: Eliminar un producto de un pedido.
-        case "eliminar_detalle":
-
-            exigirMetodo("POST");
-            validarCsrf();
-
-            $data = entrada();
-
-            $pedidoId = filter_var(
-                $data["pedido_id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            $detalleId = filter_var(
-                $data["detalle_id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            if (!$pedidoId || !$detalleId) {
-                responder(
-                    ["error" => "Identificadores inválidos."],
-                    422
-                );
-            }
-
-            $pdo->beginTransaction();
-
-            $stmt = $pdo->prepare(
-                "SELECT estado
-                 FROM pedidos
-                 WHERE id = ?
-                 FOR UPDATE"
-            );
-
-            $stmt->execute([$pedidoId]);
-            $pedido = $stmt->fetch();
-
-            if (
-                !$pedido ||
-                $pedido["estado"] !== "Pendiente"
-            ) {
-                throw new DomainException(
-                    "Solo se pueden editar pedidos pendientes."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "DELETE FROM detalle_pedidos
-                 WHERE id = ? AND pedido_id = ?"
-            );
-
-            $stmt->execute([$detalleId, $pedidoId]);
-
-            if ($stmt->rowCount() === 0) {
-                throw new DomainException(
-                    "Detalle no encontrado."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "UPDATE pedidos
-                 SET total = (
-                    SELECT COALESCE(SUM(subtotal), 0)
-                    FROM detalle_pedidos
-                    WHERE pedido_id = ?
-                 )
-                 WHERE id = ?"
-            );
-
-            $stmt->execute([$pedidoId, $pedidoId]);
-
-            $pdo->commit();
-
-            responder([
-                "mensaje" => "Producto eliminado del pedido."
-            ]);
-
-            break;
-
-        // E: Cambiar el estado de un pedido.
-        case "estado":
-
-            exigirMetodo("POST");
-            validarCsrf();
-
-            $data = entrada();
-
-            $id = filter_var(
-                $data["pedido_id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            $estado = $data["estado"] ?? "";
-
-            $permitidos = [
-                "Pendiente" => [
-                    "En preparación",
-                    "Cancelado"
-                ],
-                "En preparación" => [
-                    "Listo",
-                    "Cancelado"
-                ],
-                "Listo" => [
-                    "Entregado"
-                ],
-                "Entregado" => [],
-                "Cancelado" => []
-            ];
-
-            if (
-                !$id ||
-                !is_string($estado) ||
-                !in_array(
-                    $estado,
-                    [
-                        "Pendiente",
-                        "En preparación",
-                        "Listo",
-                        "Entregado",
-                        "Cancelado"
-                    ],
-                    true
-                )
-            ) {
-                responder(
-                    ["error" => "Pedido o estado inválido."],
-                    422
-                );
-            }
-
-            $pdo->beginTransaction();
-
-            $stmt = $pdo->prepare(
-                "SELECT estado
-                 FROM pedidos
-                 WHERE id = ?
-                 FOR UPDATE"
-            );
-
-            $stmt->execute([$id]);
-            $pedido = $stmt->fetch();
-
-            if (!$pedido) {
-                throw new DomainException(
-                    "Pedido no encontrado."
-                );
-            }
-
-            if (
-                !in_array(
-                    $estado,
-                    $permitidos[$pedido["estado"]],
-                    true
-                )
-            ) {
-                throw new DomainException(
-                    "No se permite ese cambio de estado."
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "UPDATE pedidos
-                 SET estado = ?
-                 WHERE id = ?"
-            );
-
-            $stmt->execute([$estado, $id]);
-
-            $pdo->commit();
-
-            responder([
-                "mensaje" => "Estado actualizado correctamente."
-            ]);
-
-            break;
-
-        // F: Consultar los datos de un comprobante.
-        case "comprobante":
-
-            exigirMetodo("GET");
-
-            $id = filter_var(
-                $_GET["id"] ?? null,
-                FILTER_VALIDATE_INT
-            );
-
-            if (!$id) {
-                responder(
-                    ["error" => "Número de pedido inválido."],
-                    422
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "SELECT id, cliente, fecha, estado, total
-                 FROM pedidos
-                 WHERE id = ?"
-            );
-
-            $stmt->execute([$id]);
-            $pedido = $stmt->fetch();
-
-            if (!$pedido) {
-                responder(
-                    ["error" => "Pedido no encontrado."],
-                    404
-                );
-            }
-
-            $stmt = $pdo->prepare(
-                "SELECT
-                    producto_nombre,
-                    cantidad,
-                    precio,
-                    subtotal
-                 FROM detalle_pedidos
-                 WHERE pedido_id = ?
-                 ORDER BY id"
-            );
-
-            $stmt->execute([$id]);
-
-            $pedido["items"] = $stmt->fetchAll();
-
-            responder($pedido);
-
-            break;
-
-        default:
-
-            responder([
-                "error" => "Acción desconocida."
-            ], 404);
+            throw $e;
+        }
     }
+
+    /*
+    |----------------------------------------------------------------------
+    | MODIFICAR CANTIDAD DE UN PRODUCTO DEL PEDIDO
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'modificar' && $metodo === 'POST') {
+        $datos = leerJson();
+
+        $detalleId = validarId($datos['detalle_id'] ?? null);
+
+        $cantidad = filter_var(
+            $datos['cantidad'] ?? null,
+            FILTER_VALIDATE_INT
+        );
+
+        if ($cantidad === false || $cantidad === null || $cantidad < 1) {
+            responder(['error' => 'La cantidad debe ser mayor que cero.'], 422);
+        }
+
+        $consulta = $pdo->prepare(
+            'SELECT dp.id, dp.pedido_id, dp.precio, p.estado
+             FROM detalle_pedidos dp
+             INNER JOIN pedidos p ON p.id = dp.pedido_id
+             WHERE dp.id = ?'
+        );
+
+        $consulta->execute([$detalleId]);
+        $detalle = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        if (!$detalle) {
+            responder(['error' => 'El producto del pedido no existe.'], 404);
+        }
+
+        if ($detalle['estado'] !== 'Pendiente') {
+            responder([
+                'error' => 'Solo puedes modificar pedidos pendientes.'
+            ], 422);
+        }
+
+        $nuevoSubtotal = round(
+            (float) $detalle['precio'] * $cantidad,
+            2
+        );
+
+        $actualizar = $pdo->prepare(
+            'UPDATE detalle_pedidos
+             SET cantidad = ?, subtotal = ?
+             WHERE id = ?'
+        );
+
+        $actualizar->execute([
+            $cantidad,
+            $nuevoSubtotal,
+            $detalleId
+        ]);
+
+        recalcularPedido($pdo, (int) $detalle['pedido_id']);
+
+        responder([
+            'ok' => true,
+            'mensaje' => 'Producto del pedido actualizado.'
+        ]);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | ELIMINAR PRODUCTO DE UN PEDIDO
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'eliminar_detalle' && $metodo === 'POST') {
+        $datos = leerJson();
+
+        $detalleId = validarId($datos['detalle_id'] ?? null);
+
+        $consulta = $pdo->prepare(
+            'SELECT dp.pedido_id, p.estado
+             FROM detalle_pedidos dp
+             INNER JOIN pedidos p ON p.id = dp.pedido_id
+             WHERE dp.id = ?'
+        );
+
+        $consulta->execute([$detalleId]);
+        $detalle = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        if (!$detalle) {
+            responder(['error' => 'El producto del pedido no existe.'], 404);
+        }
+
+        if ($detalle['estado'] !== 'Pendiente') {
+            responder([
+                'error' => 'Solo puedes modificar pedidos pendientes.'
+            ], 422);
+        }
+
+        $eliminar = $pdo->prepare(
+            'DELETE FROM detalle_pedidos WHERE id = ?'
+        );
+
+        $eliminar->execute([$detalleId]);
+
+        recalcularPedido($pdo, (int) $detalle['pedido_id']);
+
+        responder([
+            'ok' => true,
+            'mensaje' => 'Producto eliminado del pedido.'
+        ]);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | CAMBIAR ESTADO DEL PEDIDO
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'estado' && $metodo === 'POST') {
+        $datos = leerJson();
+
+        $pedidoId = validarId($datos['id'] ?? null);
+        $nuevoEstado = trim((string) ($datos['estado'] ?? ''));
+
+        $estadosPermitidos = [
+            'Pendiente',
+            'En preparación',
+            'Listo',
+            'Entregado',
+            'Cancelado'
+        ];
+
+        if (!in_array($nuevoEstado, $estadosPermitidos, true)) {
+            responder(['error' => 'El estado indicado no es válido.'], 422);
+        }
+
+        $consulta = $pdo->prepare(
+            'SELECT estado FROM pedidos WHERE id = ?'
+        );
+
+        $consulta->execute([$pedidoId]);
+        $pedido = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        if (!$pedido) {
+            responder(['error' => 'El pedido no existe.'], 404);
+        }
+
+        $estadoActual = $pedido['estado'];
+
+        $transiciones = [
+            'Pendiente' => ['En preparación', 'Cancelado'],
+            'En preparación' => ['Listo', 'Cancelado'],
+            'Listo' => ['Entregado'],
+            'Entregado' => [],
+            'Cancelado' => []
+        ];
+
+        if (
+            $nuevoEstado !== $estadoActual &&
+            !in_array(
+                $nuevoEstado,
+                $transiciones[$estadoActual] ?? [],
+                true
+            )
+        ) {
+            responder([
+                'error' => 'No se permite cambiar de ' .
+                    $estadoActual . ' a ' . $nuevoEstado . '.'
+            ], 422);
+        }
+
+        $actualizar = $pdo->prepare(
+            'UPDATE pedidos SET estado = ? WHERE id = ?'
+        );
+
+        $actualizar->execute([$nuevoEstado, $pedidoId]);
+
+        responder([
+            'ok' => true,
+            'mensaje' => 'Estado del pedido actualizado.',
+            'estado' => $nuevoEstado
+        ]);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | CONSULTAR DATOS PARA EL COMPROBANTE
+    |----------------------------------------------------------------------
+    */
+    if ($accion === 'comprobante' && $metodo === 'GET') {
+        $pedidoId = validarId($_GET['id'] ?? null);
+
+        $pedido = obtenerPedido($pdo, $pedidoId);
+
+        responder($pedido);
+    }
+
+    /*
+    |----------------------------------------------------------------------
+    | ACCIÓN NO RECONOCIDA
+    |----------------------------------------------------------------------
+    */
+    responder(['error' => 'La acción solicitada no existe.'], 404);
 
 } catch (DomainException $e) {
+    responder(['error' => $e->getMessage()], 422);
 
-    if ($pdo->inTransaction()) {
-        $pdo->rollBack();
-    }
+} catch (PDOException $e) {
+    error_log('Error de base de datos: ' . $e->getMessage());
 
     responder([
-        "error" => $e->getMessage()
-    ], 422);
+        'error' => 'Ocurrió un error en la base de datos. Revisa la configuración y las tablas.'
+    ], 500);
 
 } catch (Throwable $e) {
-
-    if ($pdo->inTransaction()) {
-        $pdo->rollBack();
-    }
-
-    error_log($e->getMessage());
+    error_log('Error en pedidos_api.php: ' . $e->getMessage());
 
     responder([
-        "error" => "No se pudo completar la operación."
+        'error' => 'Ocurrió un error interno al procesar la solicitud.'
     ], 500);
 }
 ```
