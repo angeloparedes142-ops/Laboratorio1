@@ -1,9 +1,9 @@
-package pe.edu.utp.techlab_web;
+package pe.edu.utp.techlabweb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = TechlabWebApplication.class)
 class TechlabWebApplicationTests {
 
 	@Test

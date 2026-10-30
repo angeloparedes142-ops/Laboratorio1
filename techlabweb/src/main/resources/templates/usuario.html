@@ -3,204 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil | COFFEE</title>
+    <title>Mi Perfil y Panel VIP | COFFEE TECHLAB</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-light position-relative">
 
-<!-- Header con th:style para Spring Boot -->
-<header th:style="'background-image: url(' + @{/imagenes/header.jpg} + '); background-size: cover; background-position: center; min-height: 150px;'">
+<!-- HEADER PRINCIPAL -->
+<header th:style="'background-image: url(' + @{/imagenes/header.jpg} + '); background-size: cover; background-position: center; min-height: 160px;'">
     <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
                 <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
-                <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
+                <strong style="color: #333; font-size: 1.5rem;">COFFEE TECHLAB</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav bg-white rounded px-3 py-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="index.html" th:href="@{/}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="usuario.html" th:href="@{/usuario}">Usuario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">
-                            🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span>
-                        </a>
-                    </li>
+                <ul class="navbar-nav bg-white rounded px-3 py-1 shadow-sm">
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">Pedidos</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/reservaciones}">Reservaciones</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/promociones}">Promociones</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3 active" th:href="@{/usuario}">Mi Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">🛒 Carrito <span id="contador-carrito" class="badge bg-danger rounded-pill">3</span></a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<main class="container my-5">
-    <div class="row justify-content-center g-4">
-        <div class="col-md-8 col-lg-7">
+<main class="container my-5 pb-5">
+    <div class="row g-4">
+        
+        <!-- COLUMNA IZQUIERDA: RESUMEN DEL PERFIL Y VIP -->
+        <div class="col-lg-4">
             
-            <!-- TARJETA DE PERFIL BOOTSTRAP -->
-            <div class="card shadow border-0 rounded-4 overflow-hidden mb-4">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-header text-center text-white p-4 border-0" th:style="'background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(' + @{/imagenes/fondo-cafe.jfif} + ') center/cover;'">
+                    <img th:src="@{/imagenes/foto.jfif}" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Omar Balvin" class="rounded-circle border border-4 border-warning shadow mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h4 class="fw-bold mb-0">Omar Balvin Chacchi</h4>
+                    <p class="text-warning fw-semibold mb-1">👑 Miembro VIP Gold Level</p>
+                    <small class="text-light opacity-75">Systems & Software Engineer</small>
+                </div>
                 
-                <!-- Encabezado del Perfil -->
-                <div class="card-header text-center text-white p-5 border-0" th:style="'background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(' + @{/imagenes/fondo-cafe.jfif} + ') center/cover;'">
-                    <img th:src="@{/imagenes/foto.jfif}" alt="Avatar" class="rounded-circle border border-4 border-white shadow mb-3" style="width: 120px; height: 120px; object-fit: cover;">
-                    <h2 class="fw-bold mb-1">¡Hola, Coffee Lover! 👋</h2>
-                    <p class="mb-0 fs-5 text-light">☕ Miembro VIP Gold</p>
-                </div>
-
-                <!-- NIVEL Y PUNTOS ACUMULADOS -->
-                <div class="card-body p-4 bg-white border-bottom">
-                    <div class="vip-points-card p-3 d-flex align-items-center justify-content-between mb-3">
-                        <div>
-                            <h5 class="fw-bold mb-1">Puntos Coffee Rewards ⭐</h5>
-                            <small class="text-light">¡Te faltan 150 pts para tu café gratis!</small>
-                        </div>
-                        <span class="points-badge" id="puntosUsuario">850 pts</span>
-                    </div>
-
-                    <label class="form-label fw-bold text-muted small mb-1">Progreso hacia el siguiente nivel:</label>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar progress-bar-custom progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <!-- CUERPO DE LA TARJETA (FAVORITOS) -->
                 <div class="card-body p-4 bg-white">
-                    <h4 class="border-bottom pb-2 mb-4 fw-bold" style="color: #3b2416;">Mis Favoritos ❤️</h4>
-                    
-                    <div class="d-flex gap-3 overflow-auto pb-2" style="scrollbar-width: thin;">
-                        <div class="text-center" style="min-width: 120px;">
-                            <img th:src="@{/imagenes/capuchino.jfif}" alt="Capuccino" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
-                            <span class="fw-semibold text-muted d-block">Capuccino</span>
+                    <div class="vip-points-card p-3 rounded-3 mb-3 text-center">
+                        <small class="text-light text-uppercase fw-bold d-block mb-1">Puntos Acumulados</small>
+                        <span class="display-5 fw-extrabold text-warning d-block" id="puntosUsuario">850</span>
+                        <small class="text-light">¡Faltan solo 150 pts para un café gratis!</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small fw-bold mb-1">
+                            <span>Progreso Nivel Diamond</span>
+                            <span>85%</span>
                         </div>
-                        <div class="text-center" style="min-width: 120px;">
-                            <img th:src="@{/imagenes/roscas.jfif}" alt="Postres" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
-                            <span class="fw-semibold text-muted d-block">Postres</span>
-                        </div>
-                        <div class="text-center" style="min-width: 120px;">
-                            <img th:src="@{/imagenes/frape.jfif}" alt="Frappé" class="rounded-3 shadow-sm mb-2" style="width: 100%; height: 90px; object-fit: cover;">
-                            <span class="fw-semibold text-muted d-block">Frappé Moka</span>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar progress-bar-custom progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%;"></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- BOTONES INFERIORES -->
-                <div class="card-footer bg-white border-top-0 p-4 text-center">
-                    <div class="d-grid gap-2 d-md-block">
-                        <a href="index.html" th:href="@{/}" class="btn btn-dark px-4 py-2 me-md-2 fw-bold">🏠 Volver a la Tienda</a>
-                        <a href="promociones.html" th:href="@{/promociones}" class="btn btn-outline-dark px-4 py-2 fw-bold">🎟️ Ver Promos</a>
-                    </div>
+                    <ul class="list-group list-group-flush small fw-bold mt-3">
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span>☕ Bebidas gratuitas reclamadas:</span>
+                            <span class="text-success">12 tazas</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span>🎟️ Cupones activos:</span>
+                            <span class="text-primary">3 disponibles</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span>🏫 Afiliación:</span>
+                            <span class="text-dark">UTP Campus Lima</span>
+                        </li>
+                    </ul>
                 </div>
-
             </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: SECCIONES EXTENDIDAS -->
+        <div class="col-lg-8">
+            
+            <!-- HISTORIAL DE PEDIDOS RECIENTES -->
+            <section class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white" id="secHistorial">
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <h5 class="fw-bold mb-0 text-dark">📜 Historial de Pedidos Recientes</h5>
+                    <span class="badge bg-success">3 Pedidos realizados</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>N° Pedido</th>
+                                <th>Fecha</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">#ORD-2026-891</td>
+                                <td>30 Oct 2026</td>
+                                <td>2x Cappuccino, 1x Croissant</td>
+                                <td class="fw-bold">S/ 26.50</td>
+                                <td><span class="badge bg-warning text-dark">⏳ En preparación</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">#ORD-2026-754</td>
+                                <td>25 Oct 2026</td>
+                                <td>1x Frappé Moka XL, 1x Rosca</td>
+                                <td class="fw-bold">S/ 29.50</td>
+                                <td><span class="badge bg-success">✅ Entregado</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">#ORD-2026-610</td>
+                                <td>18 Oct 2026</td>
+                                <td>1x Pack Coffee Lover Pro</td>
+                                <td class="fw-bold">S/ 34.90</td>
+                                <td><span class="badge bg-success">✅ Entregado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- PRODUCTOS FAVORITOS Y RECOMENDADOS -->
+            <section class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white" id="secFavoritos">
+                <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">❤️ Mis Favoritos Frecuentes</h5>
+                <div class="row row-cols-1 row-cols-sm-3 g-3">
+                    <div class="col text-center">
+                        <div class="p-3 border rounded-3 bg-light h-100 d-flex flex-column justify-content-between">
+                            <img th:src="@{/imagenes/capuchino.jfif}" src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=300&q=80" alt="Capuccino" class="rounded-3 mb-2 w-100" style="height: 110px; object-fit: cover;">
+                            <h6 class="fw-bold mb-1">Cappuccino Italiano</h6>
+                            <small class="text-muted d-block mb-2">Pedido 8 veces</small>
+                            <button class="btn btn-outline-dark btn-sm w-100 fw-bold mt-auto" onclick="alert('¡Añadido al carrito!')">Pedir de nuevo</button>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="p-3 border rounded-3 bg-light h-100 d-flex flex-column justify-content-between">
+                            <img th:src="@{/imagenes/roscas.jfif}" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" alt="Roscas" class="rounded-3 mb-2 w-100" style="height: 110px; object-fit: cover;">
+                            <h6 class="fw-bold mb-1">Roscas Glaseadas</h6>
+                            <small class="text-muted d-block mb-2">Pedido 5 veces</small>
+                            <button class="btn btn-outline-dark btn-sm w-100 fw-bold mt-auto" onclick="alert('¡Añadido al carrito!')">Pedir de nuevo</button>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="p-3 border rounded-3 bg-light h-100 d-flex flex-column justify-content-between">
+                            <img th:src="@{/imagenes/frape.jfif}" src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=300&q=80" alt="Frappé" class="rounded-3 mb-2 w-100" style="height: 110px; object-fit: cover;">
+                            <h6 class="fw-bold mb-1">Frappé Moka XL</h6>
+                            <small class="text-muted d-block mb-2">Pedido 4 veces</small>
+                            <button class="btn btn-outline-dark btn-sm w-100 fw-bold mt-auto" onclick="alert('¡Añadido al carrito!')">Pedir de nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORMULARIO DE EDICIÓN DE CONFIGURACIÓN -->
+            <section class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white" id="secAjustes">
+                <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">⚙️ Datos Personales y Preferencias</h5>
+                <form onsubmit="alert('¡Datos guardados correctamente!'); return false;">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Nombre Completo</label>
+                            <input type="text" class="form-control" value="Omar Alberto Balvin Chacchi">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Correo Electrónico</label>
+                            <input type="email" class="form-control" value="omar.balvin@utp.edu.pe" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Teléfono Móvil</label>
+                            <input type="tel" class="form-control" value="+51 987 654 321">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Dirección Principal de Entrega</label>
+                            <input type="text" class="form-control" value="Av. Arequipa 1230, Cercado de Lima">
+                        </div>
+                        <div class="col-12 text-end mt-4">
+                            <button type="submit" class="btn btn-dark fw-bold px-4">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
         </div>
     </div>
 </main>
 
 <!-- ==========================================
-     WIDGET FLOTANTE: ASESOR VIRTUAL BARISTA
+     BOTÓN CIRCULAR FLOTANTE Y VENTANA MODAL CENTRADA (ASESOR VIRTUAL)
      ========================================== -->
-<div id="advisorWidget" class="advisor-floating-container">
-    
-    <!-- BOTÓN FLOTANTE PLEGABLE -->
-    <button id="advisorTrigger" class="advisor-badge-btn" onclick="toggleAdvisor()">
-        <span>☕</span>
-        <span>Asesor Barista</span>
-        <span class="badge rounded-pill bg-danger ms-1" id="unreadBadge">1</span>
+<div class="advisor-floating-container">
+    <!-- Botón Circular Flotante con Logo de Barista -->
+    <button id="advisorTrigger" class="advisor-circle-btn shadow-lg" onclick="toggleAdvisor()" title="Asesor Barista AI">
+        <span>☕🤖</span>
+        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" id="unreadBadge">
+            <span class="visually-hidden">Notificaciones</span>
+        </span>
     </button>
+</div>
 
-    <!-- VENTANA INTERACTIVA DEL ASESOR VIRTUAL -->
-    <div id="advisorWindow" class="advisor-card d-none">
-        <div class="advisor-header text-white p-3 d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-2">
-                <div class="advisor-avatar rounded-circle d-flex align-items-center justify-content-center">
-                    🤖
-                </div>
-                <div>
-                    <h6 class="mb-0 fw-bold" style="color: #F9E8A2;">CoffeeBarista AI</h6>
-                    <small class="text-success font-monospace" style="font-size: 0.75rem;">● En línea | Asesor Virtual</small>
-                </div>
-            </div>
-            <button type="button" class="btn-close btn-close-white" onclick="toggleAdvisor()"></button>
-        </div>
+<!-- Fondo oscuro difuminado (Backdrop) para la ventana central -->
+<div id="advisorBackdrop" class="advisor-backdrop d-none" onclick="toggleAdvisor()"></div>
 
-        <!-- HISTORIAL DE CHAT Y MENSAJES -->
-        <div class="advisor-body p-3" id="advisorChatHistory">
-            <div class="chat-msg bot-msg mb-3">
-                <div class="msg-bubble p-3 rounded shadow-sm">
-                    ¡Hola, Coffee Lover! ☕ Soy tu <strong>Asesor Barista Virtual</strong>. ¿En qué puedo ayudarte hoy?
-                </div>
+<!-- Ventana Flotante Centralizada del Asesor Barista AI -->
+<div id="advisorWindow" class="advisor-centered-modal d-none shadow-lg">
+    <div class="advisor-header text-white p-3 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <div class="advisor-avatar rounded-circle d-flex align-items-center justify-content-center">🤖</div>
+            <div>
+                <h6 class="mb-0 fw-bold" style="color: #F9E8A2;">CoffeeBarista AI v2.5</h6>
+                <small class="text-success font-monospace" style="font-size: 0.75rem;">● En línea | Asistencia Instantánea</small>
             </div>
         </div>
+        <button type="button" class="btn-close btn-close-white" onclick="toggleAdvisor()"></button>
+    </div>
 
-        <!-- PREGUNTAS RÁPIDAS -->
-        <div class="px-3 pb-2 bg-light border-top pt-2">
-            <small class="text-muted fw-bold d-block mb-2">Preguntas frecuentes:</small>
-            <div class="d-flex flex-wrap gap-1">
-                <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('puntos')">⭐ Mis Puntos</button>
-                <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('promo')">🎟️ Promos activas</button>
-                <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('recomendacion')">☕ Recomendación</button>
+    <div class="advisor-body p-3" id="advisorChatHistory">
+        <div class="chat-msg bot-msg mb-3">
+            <div class="msg-bubble p-3 rounded shadow-sm">
+                ¡Hola, Omar! ☕ Soy tu <strong>Asesor Barista Virtual</strong>. ¿En qué puedo ayudarte hoy desde tu panel de usuario?
             </div>
         </div>
+    </div>
 
-        <!-- ENTRADA DE TEXTO DE CHAT -->
-        <div class="p-2 bg-white border-top">
-            <form id="advisorForm" onsubmit="enviarMensajeAsesor(event)" class="d-flex gap-2">
-                <input type="text" id="advisorInput" class="form-control form-control-sm" placeholder="Escribe tu consulta..." autocomplete="off">
-                <button type="submit" class="btn btn-dark btn-sm fw-bold">Enviar</button>
-            </form>
+    <div class="px-3 pb-2 bg-light border-top pt-2">
+        <small class="text-muted fw-bold d-block mb-2">Consultas frecuentes:</small>
+        <div class="d-flex flex-wrap gap-1">
+            <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('puntos')">⭐ ¿Cuántos puntos me quedan?</button>
+            <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('promo')">🎟️ ¿Qué ofertas hay hoy?</button>
+            <button class="btn btn-outline-dark btn-xs" onclick="preguntarRapido('recomendacion')">☕ Recomendación de bebida</button>
         </div>
+    </div>
+
+    <div class="p-3 bg-white border-top">
+        <form id="advisorForm" onsubmit="enviarMensajeAsesor(event)" class="d-flex gap-2">
+            <input type="text" id="advisorInput" class="form-control" placeholder="Escribe tu duda aquí..." autocomplete="off">
+            <button type="submit" class="btn btn-dark fw-bold px-4">Enviar</button>
+        </form>
     </div>
 </div>
 
-<!-- LÓGICA DEL ASESOR VIRTUAL BARISTA -->
 <script>
     let advisorAbierto = false;
 
     function toggleAdvisor() {
         const ventana = document.getElementById('advisorWindow');
+        const backdrop = document.getElementById('advisorBackdrop');
         const badge = document.getElementById('unreadBadge');
         
         advisorAbierto = !advisorAbierto;
         
         if (advisorAbierto) {
             ventana.classList.remove('d-none');
+            backdrop.classList.remove('d-none');
             badge.classList.add('d-none');
         } else {
             ventana.classList.add('d-none');
+            backdrop.classList.add('d-none');
         }
     }
 
     function preguntarRapido(tipo) {
         let texto = "";
-        if (tipo === 'puntos') texto = "¿Cuántos puntos tengo acumulados?";
-        if (tipo === 'promo') texto = "¿Qué promociones hay disponibles hoy?";
-        if (tipo === 'recomendacion') texto = "¿Qué bebida me recomiendas pedir?";
+        if (tipo === 'puntos') texto = "¿Cuántos puntos Coffee Rewards me quedan?";
+        if (tipo === 'promo') texto = "¿Qué ofertas hay disponibles hoy?";
+        if (tipo === 'recomendacion') texto = "¿Qué bebida fría me recomiendas pedir?";
 
         agregarMensajeChat(texto, 'user');
-        generarRespuestaBot(tipo, texto);
+        generarRespuestaBot(tipo);
     }
 
     function enviarMensajeAsesor(event) {
         event.preventDefault();
         const input = document.getElementById('advisorInput');
         const text = input.value.trim();
-        
         if (!text) return;
 
         agregarMensajeChat(text, 'user');
@@ -208,14 +294,14 @@
 
         setTimeout(() => {
             const lower = text.toLowerCase();
-            if (lower.includes('punto') || lower.includes('reward') || lower.includes('puntuacion')) {
-                generarRespuestaBot('puntos', text);
+            if (lower.includes('punto') || lower.includes('reward') || lower.includes('nivel')) {
+                generarRespuestaBot('puntos');
             } else if (lower.includes('promo') || lower.includes('descuento') || lower.includes('2x1') || lower.includes('oferta')) {
-                generarRespuestaBot('promo', text);
-            } else if (lower.includes('recomiend') || lower.includes('sabor') || lower.includes('cafe')) {
-                generarRespuestaBot('recomendacion', text);
+                generarRespuestaBot('promo');
+            } else if (lower.includes('recomiend') || lower.includes('cafe') || lower.includes('bebida')) {
+                generarRespuestaBot('recomendacion');
             } else {
-                generarRespuestaBot('general', text);
+                agregarMensajeChat("Con gusto te asisto. Puedes consultar tus puntos, pedir cupones de descuento o revisar tu historial de compras.", 'bot');
             }
         }, 500);
     }
@@ -224,35 +310,24 @@
         const historial = document.getElementById('advisorChatHistory');
         const msgDiv = document.createElement('div');
         msgDiv.className = `chat-msg ${emisor === 'user' ? 'user-msg' : 'bot-msg'} mb-3`;
-        
-        msgDiv.innerHTML = `
-            <div class="msg-bubble p-3 rounded shadow-sm">
-                ${texto}
-            </div>
-        `;
-        
+        msgDiv.innerHTML = `<div class="msg-bubble p-3 rounded shadow-sm">${texto}</div>`;
         historial.appendChild(msgDiv);
         historial.scrollTop = historial.scrollHeight;
     }
 
-    function generarRespuestaBot(tipo, textoUsuario) {
+    function generarRespuestaBot(tipo) {
         let respuesta = "";
-
         switch (tipo) {
             case 'puntos':
-                respuesta = "⭐ Actualmente tienes <strong>850 Puntos VIP</strong>. Estás a solo 150 puntos de obtener un Café Capuccino gratis.";
+                respuesta = "⭐ Tienes <strong>850 Puntos VIP Gold</strong>. Te faltan 150 puntos para obtener un Cappuccino gratis.";
                 break;
             case 'promo':
-                respuesta = "🎟️ Hoy tenemos disponibles el <strong>Combo Mañanero a S/ 12.00</strong> y el <strong>2x1 en Cappuccino</strong> por S/ 14.00.";
+                respuesta = "🎟️ Tienes activo el cupón <strong>UTP2026</strong> para un 20% extra y la oferta <strong>2x1 en Cappuccinos</strong>.";
                 break;
             case 'recomendacion':
-                respuesta = "☕ Si te gusta lo dulce te recomiendo nuestro <strong>Frappé Moka</strong>, pero si prefieres algo clásico el <strong>Cappuccino</strong> es la elección perfecta.";
-                break;
-            default:
-                respuesta = "Con gusto te ayudo. Puedes preguntarme por tus puntos VIP, las promociones vigentes o pedirme recomendaciones del menú.";
+                respuesta = "☕ Para hoy te sugiero probar nuestro especial <strong>Cold Brew Tonic Cítrico</strong> o el clásico <strong>Frappé Moka</strong>.";
                 break;
         }
-
         agregarMensajeChat(respuesta, 'bot');
     }
 </script>

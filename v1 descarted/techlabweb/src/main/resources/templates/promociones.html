@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones | COFFEE</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Header con th:style para Spring Boot -->
+<header th:style="'background-image: url(' + @{/imagenes/header.jpg} + '); background-size: cover; background-position: center; min-height: 150px;'">
+    <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
+                <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav bg-white rounded px-3 py-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="index.html" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="usuario.html" th:href="@{/usuario}">Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">
+                            🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container my-5">
+    <h1 class="text-center fw-bold page-title">PROMOCIONES ESPECIALES</h1>
+    <p class="text-center text-muted mb-4 fs-5">Aprovecha nuestros descuentos y combos exclusivos pensados para ti.</p>
+    
+    <!-- BARRA DE FILTROS Y BÚSQUEDA -->
+    <section class="filter-card p-4 mb-5 shadow-sm">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-6">
+                <label for="buscarPromo" class="form-label fw-bold" style="color: #3b2416;">🔍 Buscar Promoción</label>
+                <input type="text" id="buscarPromo" class="form-control" placeholder="Ejemplo: Cappuccino, Mañanero, Postres..." onkeyup="filtrarPromociones()">
+            </div>
+            <div class="col-md-6">
+                <label for="selectCategoria" class="form-label fw-bold" style="color: #3b2416;">🏷️ Categoria</label>
+                <select id="selectCategoria" class="form-select" onchange="filtrarPromociones()">
+                    <option value="TODOS">Todas las promociones</option>
+                    <option value="DESAYUNOS">Desayunos y Combos</option>
+                    <option value="BEBIDAS">Bebidas y Cafés</option>
+                    <option value="POSTRES">Postres y Repostería</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTADO DE PROMOCIONES -->
+    <section class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" id="contenedorPromos">
+        
+        <!-- PROMO 1 -->
+        <article class="col item-promo" data-categoria="DESAYUNOS" style="max-width: 500px;">
+            <div class="card h-100 shadow-sm position-relative overflow-hidden">
+                <span class="promo-badge">-25% OFF</span>
+                <img th:src="@{/imagenes/fondo mañana.jfif}" class="card-img-top" alt="Combo Mañanero" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column text-center">
+                    <div>
+                        <span class="card-category-tag">DESAYUNOS</span>
+                    </div>
+                    <h5 class="card-title fw-bold promo-titulo">Combo Mañanero ☀️</h5>
+                    <p class="card-text flex-grow-1">Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla.</p>
+                    <div class="my-2">
+                        <span class="text-muted text-decoration-line-through me-2">S/ 16.00</span>
+                        <span class="text-danger fw-bold fs-4">S/ 12.00</span>
+                    </div>
+                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                </div>
+            </div>
+        </article>
+        
+        <!-- PROMO 2 -->
+        <article class="col item-promo" data-categoria="BEBIDAS" style="max-width: 500px;">
+            <div class="card h-100 shadow-sm position-relative overflow-hidden">
+                <span class="promo-badge">2x1</span>
+                <img th:src="@{/imagenes/2x1 capuchino.jfif}" class="card-img-top" alt="2x1 en Cappuccino" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column text-center">
+                    <div>
+                        <span class="card-category-tag">BEBIDAS</span>
+                    </div>
+                    <h5 class="card-title fw-bold promo-titulo">¡2x1 en Cappuccino! ☕☕</h5>
+                    <p class="card-text flex-grow-1">Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno.</p>
+                    <div class="my-2">
+                        <span class="text-muted text-decoration-line-through me-2">S/ 28.00</span>
+                        <span class="text-danger fw-bold fs-4">S/ 14.00</span>
+                    </div>
+                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 3 (NUEVA AMAPLIACIÓN MANTENIENDO IMÁGENES EXISTENTES) -->
+        <article class="col item-promo" data-categoria="POSTRES" style="max-width: 500px;">
+            <div class="card h-100 shadow-sm position-relative overflow-hidden">
+                <span class="promo-badge">-20% OFF</span>
+                <img th:src="@{/imagenes/roscas.jfif}" class="card-img-top" alt="Tarde Dulce" style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column text-center">
+                    <div>
+                        <span class="card-category-tag">POSTRES</span>
+                    </div>
+                    <h5 class="card-title fw-bold promo-titulo">Combo Tarde Dulce 🍩</h5>
+                    <p class="card-text flex-grow-1">Selección de roscas artesanales + bebida caliente o fría de tu elección.</p>
+                    <div class="my-2">
+                        <span class="text-muted text-decoration-line-through me-2">S/ 20.00</span>
+                        <span class="text-danger fw-bold fs-4">S/ 16.00</span>
+                    </div>
+                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- MENSAJE DE RESULTADO VACÍO -->
+    <div id="sinResultados" class="text-center my-5 d-none">
+        <p class="fs-4 text-muted">☕ No se encontraron promociones con ese criterio.</p>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="index.html" th:href="@{/}" class="text-dark fw-bold text-decoration-none border-bottom border-2 border-dark pb-1">← Volver a la página principal</a>
+    </div>
+</main>
+
+<!-- SCRIPT DE FILTRADO Y BÚSQUEDA -->
+<script>
+    function filtrarPromociones() {
+        const texto = document.getElementById('buscarPromo').value.toLowerCase();
+        const categoria = document.getElementById('selectCategoria').value;
+        const promos = document.querySelectorAll('.item-promo');
+        let encontrados = 0;
+
+        promos.forEach(promo => {
+            const titulo = promo.querySelector('.promo-titulo').innerText.toLowerCase();
+            const catPromo = promo.getAttribute('data-categoria');
+
+            const coincideTexto = titulo.includes(texto);
+            const coincideCategoria = (categoria === 'TODOS' || catPromo === categoria);
+
+            if (coincideTexto && coincideCategoria) {
+                promo.style.display = 'block';
+                encontrados++;
+            } else {
+                promo.style.display = 'none';
+            }
+        });
+
+        const msjVacio = document.getElementById('sinResultados');
+        if (encontrados === 0) {
+            msjVacio.classList.remove('d-none');
+        } else {
+            msjVacio.classList.add('d-none');
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -3,46 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones | COFFEE</title>
+    <title>Promociones, Combos y Cupones | COFFEE TECHLAB</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
 
-<!-- Header con th:style para Spring Boot -->
-<header th:style="'background-image: url(' + @{/imagenes/header.jpg} + '); background-size: cover; background-position: center; min-height: 150px;'">
+<!-- HEADER PRINCIPAL CON THYMELEAF -->
+<header th:style="'background-image: url(' + @{/imagenes/header.jpg} + '); background-size: cover; background-position: center; min-height: 160px;'">
     <nav class="navbar navbar-expand-lg" style="background-color: rgba(210, 180, 140, 0.95); padding: 15px 0;">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html" th:href="@{/}">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
                 <img th:src="@{/imagenes/logo.svg}" alt="Logo" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
-                <strong style="color: #333; font-size: 1.5rem;">COFFEE</strong>
+                <strong style="color: #333; font-size: 1.5rem;">COFFEE TECHLAB</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav bg-white rounded px-3 py-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="index.html" th:href="@{/}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="reservaciones.html" th:href="@{/reservaciones}">Reservaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="usuario.html" th:href="@{/usuario}">Usuario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold px-3" href="pedidos.html" th:href="@{/pedidos}">
-                            🛒 Carrito <span id="contador-carrito" class="badge bg-danger">0</span>
-                        </a>
-                    </li>
+                <ul class="navbar-nav bg-white rounded px-3 py-1 shadow-sm">
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">Pedidos</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/reservaciones}">Reservaciones</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3 active" th:href="@{/promociones}">Promociones</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/usuario}">Mi Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold px-3" th:href="@{/pedidos}">🛒 Carrito <span id="contador-carrito" class="badge bg-danger rounded-pill">3</span></a></li>
                 </ul>
             </div>
         </div>
@@ -50,116 +39,308 @@
 </header>
 
 <main class="container my-5">
-    <h1 class="text-center fw-bold page-title">PROMOCIONES ESPECIALES</h1>
-    <p class="text-center text-muted mb-4 fs-5">Aprovecha nuestros descuentos y combos exclusivos pensados para ti.</p>
     
-    <!-- BARRA DE FILTROS Y BÚSQUEDA -->
-    <section class="filter-card p-4 mb-5 shadow-sm">
-        <div class="row g-3 align-items-center">
-            <div class="col-md-6">
-                <label for="buscarPromo" class="form-label fw-bold" style="color: #3b2416;">🔍 Buscar Promoción</label>
-                <input type="text" id="buscarPromo" class="form-control" placeholder="Ejemplo: Cappuccino, Mañanero, Postres..." onkeyup="filtrarPromociones()">
-            </div>
-            <div class="col-md-6">
-                <label for="selectCategoria" class="form-label fw-bold" style="color: #3b2416;">🏷️ Categoria</label>
-                <select id="selectCategoria" class="form-select" onchange="filtrarPromociones()">
-                    <option value="TODOS">Todas las promociones</option>
-                    <option value="DESAYUNOS">Desayunos y Combos</option>
-                    <option value="BEBIDAS">Bebidas y Cafés</option>
-                    <option value="POSTRES">Postres y Repostería</option>
-                </select>
+    <!-- BANNER HERO DE PROMOCIONES (CORREGIDO: FONDO OSCURO Y LETRAS NÍTIDAS) -->
+    <section class="p-4 p-md-5 text-white rounded-4 mb-5 position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #21130c 0%, #3b2416 60%, #1d333b 100%); border: 2px solid #D4A574;">
+        <div class="row align-items-center position-relative" style="z-index: 2;">
+            <div class="col-lg-9">
+                <span class="badge bg-warning text-dark fw-extrabold mb-3 px-3 py-2 fs-6">🔥 OFERTAS Y COMBOS DE LA SEMANA</span>
+                <h1 class="display-5 fw-extrabold mb-3 text-white">PROMOCIONES EXCLUSIVAS Y BARISTA KITS</h1>
+                <p class="fs-5 text-light opacity-90 mb-4">Aprovecha hasta 35% de descuento en combinaciones seleccionadas, packs ejecutivos de grano de origen y desayunos artesanales.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#contenedorPromos" class="btn btn-warning btn-lg fw-bold px-4 py-2 text-dark shadow">Ver ofertas abajo 👇</a>
+                    <a href="#seccionCupones" class="btn btn-outline-light btn-lg fw-bold px-4 py-2">Canjear Cupón VIP 🎟️</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- LISTADO DE PROMOCIONES -->
-    <section class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" id="contenedorPromos">
+    <!-- BARRA DE FILTROS AVANZADOS Y BÚSQUEDA -->
+    <section class="filter-card p-4 mb-5 shadow-sm border-0 rounded-4 bg-white">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <label for="buscarPromo" class="form-label fw-bold text-dark mb-1">🔍 Buscar por nombre o ingrediente</label>
+                <div class="input-group">
+                    <input type="text" id="buscarPromo" class="form-control form-control-lg" placeholder="Ej: Cappuccino, Croissant, Moka, Frappé..." onkeyup="filtrarPromociones()">
+                    <button class="btn btn-dark fw-bold" type="button" onclick="filtrarPromociones()">Buscar</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="selectCategoria" class="form-label fw-bold text-dark mb-1">🏷️ Categoria de Promoción</label>
+                <select id="selectCategoria" class="form-select form-select-lg" onchange="filtrarPromociones()">
+                    <option value="TODOS">🌟 Mostrar Todas las Promociones</option>
+                    <option value="DESAYUNOS">🍳 Desayunos & Combos Mañaneros</option>
+                    <option value="BEBIDAS">☕ Bebidas & Especialidades de Café</option>
+                    <option value="POSTRES">🍩 Postres & Repostería Artesanal</option>
+                    <option value="EJECUTIVO">💼 Combos Ejecutivos & Almuerzos</option>
+                    <option value="PACKS">📦 Packs de Grano & Merchandising</option>
+                </select>
+            </div>
+            <div class="col-md-3 text-md-end pt-md-4">
+                <span class="badge bg-secondary fs-6 p-2" id="totalPromosEncontradas">Mostrando 10 promociones</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO MIXTO DE PROMOCIONES (CON E SIN IMAGEN CORRECTAMENTE ADAPTADOS) -->
+    <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="contenedorPromos">
         
-        <!-- PROMO 1 -->
-        <article class="col item-promo" data-categoria="DESAYUNOS" style="max-width: 500px;">
-            <div class="card h-100 shadow-sm position-relative overflow-hidden">
-                <span class="promo-badge">-25% OFF</span>
-                <img th:src="@{/imagenes/fondo mañana.jfif}" class="card-img-top" alt="Combo Mañanero" style="height: 250px; object-fit: cover;">
-                <div class="card-body d-flex flex-column text-center">
-                    <div>
-                        <span class="card-category-tag">DESAYUNOS</span>
+        <!-- PROMO 1 (CON IMAGEN) -->
+        <article class="col item-promo" data-categoria="DESAYUNOS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover">
+                <span class="promo-badge bg-danger">-25% OFF</span>
+                <img th:src="@{/imagenes/fondo mañana.jfif}" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" class="card-img-top promo-img" alt="Combo Mañanero">
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div><span class="card-category-tag">DESAYUNOS</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Combo Mañanero Premium ☀️</h5>
+                    <p class="card-text text-muted flex-grow-1">Café americano de grano tostado fresco + croissant crujiente de mantequilla relleno de jamón y queso madurado.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 18.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 12.50</span>
                     </div>
-                    <h5 class="card-title fw-bold promo-titulo">Combo Mañanero ☀️</h5>
-                    <p class="card-text flex-grow-1">Lleva un café americano caliente acompañado de un crujiente croissant de mantequilla.</p>
-                    <div class="my-2">
-                        <span class="text-muted text-decoration-line-through me-2">S/ 16.00</span>
-                        <span class="text-danger fw-bold fs-4">S/ 12.00</span>
-                    </div>
-                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
                 </div>
             </div>
         </article>
         
-        <!-- PROMO 2 -->
-        <article class="col item-promo" data-categoria="BEBIDAS" style="max-width: 500px;">
-            <div class="card h-100 shadow-sm position-relative overflow-hidden">
-                <span class="promo-badge">2x1</span>
-                <img th:src="@{/imagenes/2x1 capuchino.jfif}" class="card-img-top" alt="2x1 en Cappuccino" style="height: 250px; object-fit: cover;">
-                <div class="card-body d-flex flex-column text-center">
-                    <div>
-                        <span class="card-category-tag">BEBIDAS</span>
+        <!-- PROMO 2 (CON IMAGEN) -->
+        <article class="col item-promo" data-categoria="BEBIDAS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover">
+                <span class="promo-badge bg-success">2x1 HOY</span>
+                <img th:src="@{/imagenes/2x1 capuchino.jfif}" src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&q=80" class="card-img-top promo-img" alt="2x1 Cappuccino">
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div><span class="card-category-tag">BEBIDAS</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Dúo Cappuccino Artesanal ☕☕</h5>
+                    <p class="card-text text-muted flex-grow-1">Dos cappuccinos italianos con leche emulsionada, canela fina en polvo y toque de cacao de Cusco.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 28.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 14.00</span>
                     </div>
-                    <h5 class="card-title fw-bold promo-titulo">¡2x1 en Cappuccino! ☕☕</h5>
-                    <p class="card-text flex-grow-1">Todos los martes y jueves disfruta de dos deliciosos cappuccinos al precio de uno.</p>
-                    <div class="my-2">
-                        <span class="text-muted text-decoration-line-through me-2">S/ 28.00</span>
-                        <span class="text-danger fw-bold fs-4">S/ 14.00</span>
-                    </div>
-                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
                 </div>
             </div>
         </article>
 
-        <!-- PROMO 3 (NUEVA AMAPLIACIÓN MANTENIENDO IMÁGENES EXISTENTES) -->
-        <article class="col item-promo" data-categoria="POSTRES" style="max-width: 500px;">
-            <div class="card h-100 shadow-sm position-relative overflow-hidden">
-                <span class="promo-badge">-20% OFF</span>
-                <img th:src="@{/imagenes/roscas.jfif}" class="card-img-top" alt="Tarde Dulce" style="height: 250px; object-fit: cover;">
-                <div class="card-body d-flex flex-column text-center">
-                    <div>
-                        <span class="card-category-tag">POSTRES</span>
+        <!-- PROMO 3 (CON IMAGEN) -->
+        <article class="col item-promo" data-categoria="POSTRES">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover">
+                <span class="promo-badge bg-primary">-20% OFF</span>
+                <img th:src="@{/imagenes/roscas.jfif}" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" class="card-img-top promo-img" alt="Tarde Dulce">
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div><span class="card-category-tag">POSTRES</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Pack Tarde Dulce & Roscas 🍩</h5>
+                    <p class="card-text text-muted flex-grow-1">Trío de roscas glaseadas artesanalmente con cobertura de chocolate o manjar + Bebida caliente mediana a elección.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 22.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 16.50</span>
                     </div>
-                    <h5 class="card-title fw-bold promo-titulo">Combo Tarde Dulce 🍩</h5>
-                    <p class="card-text flex-grow-1">Selección de roscas artesanales + bebida caliente o fría de tu elección.</p>
-                    <div class="my-2">
-                        <span class="text-muted text-decoration-line-through me-2">S/ 20.00</span>
-                        <span class="text-danger fw-bold fs-4">S/ 16.00</span>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 4 (CON IMAGEN) -->
+        <article class="col item-promo" data-categoria="BEBIDAS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover">
+                <span class="promo-badge bg-warning text-dark">FRESCO XL</span>
+                <img th:src="@{/imagenes/frape.jfif}" src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80" class="card-img-top promo-img" alt="Frappé Moka">
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div><span class="card-category-tag">BEBIDAS</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Frappé Moka Choco-Crunch 🥤</h5>
+                    <p class="card-text text-muted flex-grow-1">Espresso doble concentrado, chocolate belga fundido, hielo granizado y toppings de galleta triturada con crema.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 19.50</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 13.90</span>
                     </div>
-                    <a href="pedidos.html" th:href="@{/pedidos}" class="btn btn-dark mt-auto w-100 fw-bold py-2">Añadir al Pedido</a>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 5 (CON IMAGEN) -->
+        <article class="col item-promo" data-categoria="EJECUTIVO">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover">
+                <span class="promo-badge bg-dark">MENÚ TOP</span>
+                <img th:src="@{/imagenes/capuchino.jfif}" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" class="card-img-top promo-img" alt="Almuerzo Ejecutivo">
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div><span class="card-category-tag">EJECUTIVO</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Menu Ejecutivo Barista 🥪</h5>
+                    <p class="card-text text-muted flex-grow-1">Sandwich gourmet de pavo ahumado o pollo frito crujiente + Ensalada fresca + Bebida fría o café filtrado en V60.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 32.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 22.90</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 6 (DISEÑO ESPECIAL SIN IMAGEN: PACKS - STARTER KIT) -->
+        <article class="col item-promo" data-categoria="PACKS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover bg-white border-top border-4 border-dark">
+                <span class="promo-badge bg-info text-dark">PACK EN CASA</span>
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div class="display-4 text-dark mb-2">📦☕</div>
+                    <div><span class="card-category-tag">PACKS & MERCHANDISING</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Coffee Barista Starter Kit</h5>
+                    <p class="card-text text-muted flex-grow-1">Bolsa x 250g de café en grano o molido (Origen Quillabamba) + Taza cerámica oficial COFFEE + Vaso térmico de viaje.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 65.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 48.00</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 7 (DISEÑO ESPECIAL SIN IMAGEN: POSTRES - CHEESECAKE) -->
+        <article class="col item-promo" data-categoria="POSTRES">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover bg-white border-top border-4 border-primary">
+                <span class="promo-badge bg-secondary">-30% OFF</span>
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div class="display-4 text-primary mb-2">🍰🍓</div>
+                    <div><span class="card-category-tag">POSTRES Y REPOSTERÍA</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Dúo Cheesecake de Frutos Rojos</h5>
+                    <p class="card-text text-muted flex-grow-1">Dos porciones generosas de nuestro tradicional cheesecake horneado con salsa artesanal de frambuesas y arándanos frescos.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 26.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 18.20</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 8 (DISEÑO ESPECIAL SIN IMAGEN: DESAYUNOS - FITNESS) -->
+        <article class="col item-promo" data-categoria="DESAYUNOS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover bg-white border-top border-4 border-success">
+                <span class="promo-badge bg-warning text-dark">FITNESS</span>
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div class="display-4 text-success mb-2">🥣🍯</div>
+                    <div><span class="card-category-tag">DESAYUNOS SALUDABLES</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Bowl Saludable Yogurt & Granola</h5>
+                    <p class="card-text text-muted flex-grow-1">Yogurt griego natural, miel de abeja orgánica, frutos del bosque, semillas de chía y granola casera horneada con frutos secos.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 20.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 15.00</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 9 (DISEÑO ESPECIAL SIN IMAGEN: BEBIDAS - COLD BREW) -->
+        <article class="col item-promo" data-categoria="BEBIDAS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover bg-white border-top border-4 border-warning">
+                <span class="promo-badge bg-success">COLD BREW</span>
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div class="display-4 text-warning mb-2">🍋🧊</div>
+                    <div><span class="card-category-tag">BEBIDAS DE TEMPORADA</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Cold Brew Tonic Cítrico</h5>
+                    <p class="card-text text-muted flex-grow-1">Café infusionado en frío durante 18 horas, combinado con agua tónica premium, hielo cristalino y una rodaja de naranja agria.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 17.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 12.90</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROMO 10 (DISEÑO ESPECIAL SIN IMAGEN: PACKS - FAMILIAR) -->
+        <article class="col item-promo" data-categoria="PACKS">
+            <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden card-promo-hover bg-white border-top border-4 border-danger">
+                <span class="promo-badge bg-danger">FAMILIAR</span>
+                <div class="card-body d-flex flex-column p-4 text-center">
+                    <div class="display-4 text-danger mb-2">👨‍👩‍👧‍👦🍪</div>
+                    <div><span class="card-category-tag">PACKS COMPARTIR</span></div>
+                    <h5 class="card-title fw-bold promo-titulo mt-2">Mega Pack Share & Coffee</h5>
+                    <p class="card-text text-muted flex-grow-1">4 Bebidas a elección (calientes o frías) + 4 postres de vitrina a elección + Bolsa de galletas chocochips artesanales.</p>
+                    <div class="my-3 p-2 rounded-3 bg-light">
+                        <span class="text-muted text-decoration-line-through me-2 fs-6">S/ 80.00</span>
+                        <span class="text-danger fw-extrabold fs-3">S/ 55.00</span>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mt-auto" onclick="alert('¡Añadido al carrito con éxito!')">🛒 Añadir al Pedido</button>
                 </div>
             </div>
         </article>
 
     </section>
 
-    <!-- MENSAJE DE RESULTADO VACÍO -->
-    <div id="sinResultados" class="text-center my-5 d-none">
-        <p class="fs-4 text-muted">☕ No se encontraron promociones con ese criterio.</p>
+    <!-- MENSAJE DE BÚSQUEDA SIN RESULTADOS -->
+    <div id="sinResultados" class="text-center my-5 d-none p-5 bg-white rounded-4 shadow-sm">
+        <div class="display-1 mb-2">☕</div>
+        <h3 class="fw-bold text-dark">No encontramos promociones con ese criterio</h3>
+        <p class="text-muted">Intenta buscando palabras más generales como "café", "postre", "combo" o cambia de categoría.</p>
+        <button class="btn btn-outline-dark fw-bold mt-2" onclick="limpiarFiltros()">Limpiar Filtros</button>
     </div>
 
+    <!-- SECCIÓN INTERACTIVA DE CANJE DE CUPONES -->
+    <section class="my-5 p-4 p-md-5 rounded-4 bg-white shadow-sm border" id="seccionCupones">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3 class="fw-bold text-dark mb-2">🎟️ ¿Tienes un Código Promocional o Cupón VIP?</h3>
+                <p class="text-muted">Ingresa tu código exclusivo enviado a tu correo corporativo o universitario para desbloquear descuentos inmediatos.</p>
+            </div>
+            <div class="col-md-6">
+                <form id="formCupon" onsubmit="validarCupon(event)" class="d-flex gap-2">
+                    <input type="text" id="inputCupon" class="form-control form-control-lg text-uppercase" placeholder="Ej: UTPCOFFEE2026" required>
+                    <button type="submit" class="btn btn-dark btn-lg fw-bold text-nowrap">Canjear Ahora</button>
+                </form>
+                <div id="mensajeCupon" class="mt-2 fw-bold" style="display: none;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCORDION PREGUNTAS FRECUENTES -->
+    <section class="my-5">
+        <h3 class="fw-bold text-center mb-4 text-dark">❓ Preguntas Frecuentes sobre Promociones</h3>
+        <div class="accordion shadow-sm rounded-4 overflow-hidden" id="accordionFAQ">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                        ¿Cómo aplico las promociones en mis pedidos delivery?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFAQ">
+                    <div class="accordion-body">
+                        Al hacer clic en <strong>"Añadir al Pedido"</strong>, el precio promocional se aplica automáticamente en tu carrito de compras final sin cargos ocultos.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                        ¿Hasta cuándo están disponibles las ofertas 2x1?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                    <div class="accordion-body">
+                        Las ofertas 2x1 se renuevan todos los martes y jueves desde las 7:00 AM hasta agotar stock en todas nuestras sucursales físicas y web.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="text-center mt-5">
-        <a href="index.html" th:href="@{/}" class="text-dark fw-bold text-decoration-none border-bottom border-2 border-dark pb-1">← Volver a la página principal</a>
+        <a th:href="@{/}" class="text-dark fw-bold text-decoration-none border-bottom border-2 border-dark pb-1 fs-5">← Volver a la página principal de Inicio</a>
     </div>
 </main>
 
-<!-- SCRIPT DE FILTRADO Y BÚSQUEDA -->
 <script>
     function filtrarPromociones() {
-        const texto = document.getElementById('buscarPromo').value.toLowerCase();
+        const texto = document.getElementById('buscarPromo').value.toLowerCase().trim();
         const categoria = document.getElementById('selectCategoria').value;
         const promos = document.querySelectorAll('.item-promo');
         let encontrados = 0;
 
         promos.forEach(promo => {
             const titulo = promo.querySelector('.promo-titulo').innerText.toLowerCase();
+            const descripcion = promo.querySelector('.card-text').innerText.toLowerCase();
             const catPromo = promo.getAttribute('data-categoria');
 
-            const coincideTexto = titulo.includes(texto);
+            const coincideTexto = titulo.includes(texto) || descripcion.includes(texto);
             const coincideCategoria = (categoria === 'TODOS' || catPromo === categoria);
 
             if (coincideTexto && coincideCategoria) {
@@ -171,10 +352,35 @@
         });
 
         const msjVacio = document.getElementById('sinResultados');
+        const badgeTotal = document.getElementById('totalPromosEncontradas');
+
+        badgeTotal.innerText = `Mostrando ${encontrados} promociones`;
+
         if (encontrados === 0) {
             msjVacio.classList.remove('d-none');
         } else {
             msjVacio.classList.add('d-none');
+        }
+    }
+
+    function limpiarFiltros() {
+        document.getElementById('buscarPromo').value = '';
+        document.getElementById('selectCategoria').value = 'TODOS';
+        filtrarPromociones();
+    }
+
+    function validarCupon(e) {
+        e.preventDefault();
+        const code = document.getElementById('inputCupon').value.trim().toUpperCase();
+        const msg = document.getElementById('mensajeCupon');
+        
+        msg.style.display = 'block';
+        if (code === 'UTP2026' || code === 'COFFEEVIP') {
+            msg.className = 'mt-2 text-success fw-bold';
+            msg.innerText = '✅ ¡Cupón activado con éxito! Se aplicó un 20% de descuento adicional a tu carrito.';
+        } else {
+            msg.className = 'mt-2 text-danger fw-bold';
+            msg.innerText = '❌ Código no válido o caducado. Prueba con "UTP2026" o "COFFEEVIP".';
         }
     }
 </script>

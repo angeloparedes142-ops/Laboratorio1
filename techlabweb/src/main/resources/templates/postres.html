@@ -258,6 +258,13 @@
                                 <p class="fw-bold" style="color: #8B4513; font-size: 1.3rem;"
                                    th:text="'S/ ' + ${#numbers.formatDecimal(p.precio, 1, 2)}"></p>
 
+                                <button type="button" class="btn btn-success w-100 mb-2 add-to-cart-btn"
+                                        th:data-id="${p.id}"
+                                        th:data-nombre="${p.nombre}"
+                                        th:data-precio="${p.precio}">
+                                    🛒 Agregar
+                                </button>
+
                                 <button class="btn btn-success w-100 mb-2" data-bs-toggle="modal"
                                         th:attr="data-bs-target='#modalPostre' + ${p.id}">
                                     Ver Detalles
@@ -858,12 +865,62 @@
     
     <!-- Script personalizado -->
     <script>
-        // Evento para el formulario de comentarios
-        document.getElementById('formularioComentarios').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('¡Gracias por tu comentario, ' + document.getElementById('nombre').value + '! 😊\nNos encantó saber tu opinión.');
-            this.reset();
+        function actualizarContadorCarrito() {
+            const badge = document.getElementById('contador-carrito');
+            if (!badge) return;
+
+            try {
+                const carrito = JSON.parse(localStorage.getItem('carritoCafePedidos') || '[]');
+                const total = carrito.reduce((sum, item) => sum + Number(item.cantidad || 0), 0);
+                badge.textContent = total;
+            } catch (error) {
+                badge.textContent = '0';
+            }
+        }
+
+        document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
+            button.addEventListener('click', () => {
+                const id = Number(button.dataset.id);
+                const nombre = button.dataset.nombre;
+                const precio = Number(button.dataset.precio || 0);
+
+                try {
+                    const carrito = JSON.parse(localStorage.getItem('carritoCafePedidos') || '[]');
+                    const key = `postre-${id}`;
+                    const existente = carrito.find((item) => item.key === key);
+
+                    if (existente) {
+                        existente.cantidad += 1;
+                    } else {
+                        carrito.push({
+                            key,
+                            name: nombre,
+                            size: 'Porción',
+                            price: precio,
+                            cantidad: 1,
+                            category: 'postres'
+                        });
+                    }
+
+                    localStorage.setItem('carritoCafePedidos', JSON.stringify(carrito));
+                    actualizarContadorCarrito();
+                    alert(`${nombre} fue agregado al carrito.`);
+                } catch (error) {
+                    alert('No se pudo agregar el postre al carrito.');
+                }
+            });
         });
+
+        const formularioComentarios = document.getElementById('formularioComentarios');
+        if (formularioComentarios) {
+            formularioComentarios.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('¡Gracias por tu comentario, ' + document.getElementById('nombre').value + '! 😊\nNos encantó saber tu opinión.');
+                this.reset();
+            });
+        }
+
+        actualizarContadorCarrito();
     </script>
 </body>
 

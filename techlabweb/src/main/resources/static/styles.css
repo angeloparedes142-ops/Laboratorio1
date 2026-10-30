@@ -905,6 +905,20 @@ h2, h3 {
         font-size: 1.8rem !important;
     }
 }
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem !important;
+    }
+}
 /* ==========================================
    NUEVOS COMPONENTES: AMAPLIACIONES Y ASESOR VIRTUAL
    ========================================== */
@@ -1064,4 +1078,480 @@ h2, h3 {
     padding: 0.25rem 0.6rem;
     font-size: 0.75rem;
     border-radius: 15px;
+}
+/* ==========================================================================
+   AMPLIACIÓN EXTENDIDA: ESTILOS DE PROMOCIONES, PERFIL VIP Y COMPONENTES
+   ========================================================================== */
+
+/* Banner Hero de Promociones */
+.promo-hero-banner {
+    background: linear-gradient(135deg, #3b2416 0%, #6b4226 50%, #264653 100%);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.fw-extrabold {
+    font-weight: 800;
+}
+
+/* Efectos en tarjetas de Promociones */
+.card-promo-hover {
+    transition: all 0.35 ease-in-out;
+}
+
+.card-promo-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18) !important;
+}
+
+.promo-img {
+    height: 230px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card-promo-hover:hover .promo-img {
+    transform: scale(1.05);
+}
+
+.promo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: white;
+    font-weight: 800;
+    padding: 0.4rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 3;
+    letter-spacing: 0.5px;
+}
+
+.card-category-tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #3b2416;
+    background-color: #F9E8A2;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+/* Filtros Avanzados */
+.filter-card {
+    border: 1px solid #e0e0e0;
+}
+
+/* Membresía y Puntos VIP */
+.vip-points-card {
+    background: linear-gradient(135deg, #3b2416 0%, #6b4226 100%);
+    border: 1px solid #D4A574;
+}
+
+.progress-bar-custom {
+    background: linear-gradient(90deg, #2a9d8f, #e76f51);
+}
+
+/* Mini Carpetas Flotantes Laterales */
+.mini-folders-container {
+    position: fixed;
+    top: 30%;
+    left: 0;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mini-folder {
+    background-color: #3b2416;
+    color: #F9E8A2;
+    padding: 10px 15px;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 4px solid #D4A574;
+}
+
+.mini-folder:hover {
+    background-color: #264653;
+    color: #ffffff;
+    transform: translateX(8px);
+}
+
+.mini-folder span {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* Asesor Barista Virtual AI */
+.advisor-floating-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1050;
+}
+
+.advisor-badge-btn {
+    background-color: #3b2416;
+    color: #F9E8A2;
+    border: 2px solid #D4A574;
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-weight: 800;
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.advisor-badge-btn:hover {
+    background-color: #264653;
+    color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.advisor-card {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 380px;
+    max-width: 92vw;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 2px solid #D4A574;
+    background: #ffffff;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    animation: advisorFadeUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes advisorFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.advisor-header {
+    background-color: #3b2416;
+    border-bottom: 2px solid #D4A574;
+}
+
+.advisor-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 1.4rem;
+    background-color: #F9E8A2;
+    border: 2px solid #D4A574;
+}
+
+.advisor-body {
+    height: 290px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    background-color: #f8f9fa;
+    scroll-behavior: smooth;
+}
+
+.chat-msg {
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-msg .msg-bubble {
+    background-color: #ffffff;
+    color: #212529;
+    border-left: 4px solid #2a9d8f;
+    border-radius: 0 12px 12px 12px;
+}
+
+.user-msg .msg-bubble {
+    background-color: #264653;
+    color: #ffffff;
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+}
+
+.btn-xs {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    border-radius: 15px;
+    font-weight: 700;
+}
+.mini-folders-container {
+    position: fixed;
+    top: 35%;
+    left: 0;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: auto;
+}
+
+.mini-folder {
+    background-color: #3b2416;
+    color: #F9E8A2;
+    padding: 10px 14px;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 4px solid #D4A574;
+}
+
+.mini-folder:hover {
+    background-color: #264653;
+    color: #ffffff;
+    transform: translateX(6px);
+}
+
+.mini-folder span {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* Contenedor Flotante Absoluto del Asesor Barista AI (Esquina Inferior Derecha) */
+.advisor-floating-container {
+    position: fixed !important;
+    bottom: 25px !important;
+    right: 25px !important;
+    z-index: 99999 !important;
+}
+
+.advisor-badge-btn {
+    background-color: #3b2416;
+    color: #F9E8A2;
+    border: 2px solid #D4A574;
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-weight: 800;
+    font-family: "Raleway", sans-serif;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.advisor-badge-btn:hover {
+    background-color: #264653;
+    color: #ffffff;
+    transform: translateY(-4px);
+}
+
+/* Ventana Flotante Interactiva de Chat (POSICIÓN ABSOLUTA FLOTANTE SOBRE LA PÁGINA) */
+.advisor-card {
+    position: absolute !important;
+    bottom: 70px !important;
+    right: 0 !important;
+    width: 380px !important;
+    max-width: 90vw !important;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 2px solid #D4A574;
+    background: #ffffff !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35) !important;
+    z-index: 100000 !important;
+    animation: advisorFadeUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes advisorFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.advisor-header {
+    background-color: #3b2416;
+    border-bottom: 2px solid #D4A574;
+}
+
+.advisor-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+    background-color: #F9E8A2;
+    border: 2px solid #D4A574;
+}
+
+.advisor-body {
+    height: 280px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    background-color: #f8f9fa;
+    scroll-behavior: smooth;
+}
+
+.chat-msg {
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-msg .msg-bubble {
+    background-color: #ffffff;
+    color: #212529;
+    border-left: 4px solid #2a9d8f;
+    border-radius: 0 12px 12px 12px;
+}
+
+.user-msg .msg-bubble {
+    background-color: #264653;
+    color: #ffffff;
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+}
+
+.btn-xs {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    border-radius: 15px;
+    font-weight: 700;
+}
+/* ==========================================================================
+   ESTILOS NUEVOS: BOTÓN CIRCULAR FLOTANTE Y MODAL CENTRAL DE ASESOR AI
+   ========================================================================== */
+
+.advisor-floating-container {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    z-index: 99999 !important;
+}
+
+/* Botón Circular Flotante */
+.advisor-circle-btn {
+    width: 65px;
+    height: 65px;
+    background-color: #3b2416;
+    color: #F9E8A2;
+    border: 3px solid #D4A574;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.advisor-circle-btn:hover {
+    background-color: #264653;
+    color: #ffffff;
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Fondo Oscuro Difuminado (Backdrop) */
+.advisor-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 100000;
+}
+
+/* Ventana Flotante Centralizada */
+.advisor-centered-modal {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 450px !important;
+    max-width: 92vw !important;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 2px solid #D4A574;
+    background: #ffffff !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+    z-index: 100001 !important;
+    animation: modalCenterFade 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalCenterFade {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.advisor-header {
+    background-color: #3b2416;
+    border-bottom: 2px solid #D4A574;
+}
+
+.advisor-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
+    background-color: #F9E8A2;
+    border: 2px solid #D4A574;
+}
+
+.advisor-body {
+    height: 320px;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    background-color: #f8f9fa;
+    scroll-behavior: smooth;
+}
+
+.chat-msg {
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-msg .msg-bubble {
+    background-color: #ffffff;
+    color: #212529;
+    border-left: 4px solid #2a9d8f;
+    border-radius: 0 12px 12px 12px;
+}
+
+.user-msg .msg-bubble {
+    background-color: #264653;
+    color: #ffffff;
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+}
+
+.btn-xs {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.78rem;
+    border-radius: 15px;
+    font-weight: 700;
 }
